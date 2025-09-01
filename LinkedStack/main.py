@@ -8,6 +8,7 @@ def main():
     test_stack.push(1000)
     test_stack.printStackRecursive(test_stack.head)
     print()
+    test_stack.pop()
     test_stack.printStackIter()
     print(test_stack.isEmpty())
 
