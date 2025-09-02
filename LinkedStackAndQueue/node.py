@@ -4,4 +4,7 @@ class Node:
         self.next = None
         
     def printNodeInfo(self):
-        print(self.data, end = " -> ")
+        if self.next is not None:
+            print(self.data, end = " -> ")
+        else:
+            print(self.data, end = "")

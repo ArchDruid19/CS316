@@ -30,9 +30,9 @@ class LinkedQueue:
             self.tail = None
             return temp_node
         # more than 1 value in list
-
-
-        return # finish this
+        temp_node = self.head
+        self.head = temp_node.next
+        return temp_node;
     
     def isEmpty(self):
         return self.head == None
@@ -41,9 +41,8 @@ class LinkedQueue:
         # Base condition where either the list is empty
         # or head.next is empty in which case it exits out
         if head is None:
+            print()
             return
-        # Print the node, then call the method again
-        # using the next node as a parameter
         head.printNodeInfo()
         self.printListRecursive(head.next)
 
@@ -52,5 +51,6 @@ class LinkedQueue:
         while temp_node:
             temp_node.printNodeInfo()
             temp_node = temp_node.next
+        print()
             
 

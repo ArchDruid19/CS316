@@ -34,11 +34,12 @@ class LinkedStack:
         if head is None:
             return
         else:
-            print(head.data)
+            head.printNodeInfo()
             self.printStackRecursive(head.next)
 
     def printStackIter(self): # O(n)
         temp = self.head
         while temp:
-            print(temp.data)
+            temp.printNodeInfo()
             temp = temp.next
+        print()
