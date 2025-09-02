@@ -28,16 +28,17 @@ public class LinkedQueue {
         if (this.head == null) {
             System.out.println("The list is empty!");
             return null;
-            // Second condition: the list has 1 item
-        } else if (this.head.next == null) { // If the mem adress of the tail is the same as the head
-            Person temp_person = this.head.person;
-            this.head = null;
-            return temp_person;
-        } else { // Third condition: the list has more than 1 item
-            Person temp_person = this.head.person;
-            this.head = this.head.next;
-            return temp_person;
         }
+        // Second condition: the list has 1 item
+        Person temp_person = this.head.person;
+
+        if (this.head.next == null) {
+            this.head = null;
+        } else { // Third condition: the list has more than 1 item
+            this.head = this.head.next;
+        }
+        
+        return temp_person;
     }
 
     public Person peek() {

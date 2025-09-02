@@ -12,10 +12,11 @@ public class Main {
         queue_1.enqueue(people_array[1]);
         queue_1.enqueue(people_array[2]);
 
-        queue_1.dequeue();
+        System.out.println(queue_1.head.person);
+        System.out.println(queue_1.dequeue());
+        System.out.println(queue_1.head.person);
 
         queue_1.displayIterative();
-        queue_1.displayRecursive(queue_1.head);
     }
 
     public static Person[] readPersonDataToQueue(String filename) {
