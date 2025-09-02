@@ -1,6 +1,6 @@
 from node import Node
 
-class Stack:
+class LinkedStack:
     def __init__(self):
         self.head = None
 

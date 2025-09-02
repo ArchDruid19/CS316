@@ -11,7 +11,7 @@ class LinkedQueue:
         self.head = None
         self.tail = None
 
-    def push(self, data):
+    def enqueue(self, data):
         temp_node = Node(data)
         if self.head is None:
             self.head = temp_node
@@ -20,7 +20,7 @@ class LinkedQueue:
             self.tail.next = temp_node
             self.tail = temp_node
 
-    def pop(self):
+    def dequeue(self):
         if self.head is None: # No values in list
             print("The list is empty!")
             return None
