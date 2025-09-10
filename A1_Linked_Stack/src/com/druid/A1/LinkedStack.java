@@ -92,11 +92,18 @@ public class LinkedStack {
         return containsElementRecursive(number, head.next);
     }
 
+    public boolean containsElementIterative(Integer number) {
+        Node temp_current_node = this.head;
+        while (temp_current_node != null) {
+            if (temp_current_node.data.equals(number)) {
+                return true;
+            }
+            temp_current_node = temp_current_node.next;
+        }
+        return false;
+    }
+
     public void reverseListRecursive(Node node) {
-        /*
-         * Do recursive calls until we get to the end of the list, then as we are popping
-         * AR, point the nodes backwards
-         */
         if (node != null) {
             reverseListRecursive(node.next);
             this.head = node;
@@ -109,12 +116,15 @@ public class LinkedStack {
 
     public void clearListIteratively() {
         /*
-         * At each node, set it to the head which disconnects it from
-         * the previous node, Garbage collection should then free the memory
-         * because there are no more references to that node anywhere
+         * Advance through the list, each time setting the next node
+         * to null and then setting the head of the list to a copy
+         * of the next node
          */
+        Node current;
         while (this.head != null) {
-            this.head = this.head.next;
+            current = this.head.next;
+            this.head.next = null;
+            this.head = current;
         }
     }
 

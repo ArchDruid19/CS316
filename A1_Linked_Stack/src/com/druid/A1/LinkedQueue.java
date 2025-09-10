@@ -84,6 +84,9 @@ public class LinkedQueue {
     }
 
     public void displayIterative() {
+        if (this.isEmpty()) {
+            System.out.println("The list is empty!");
+        }
         Node temp_node = this.head;
         while (temp_node != null) {
             System.out.println(temp_node.data);
@@ -128,7 +131,22 @@ public class LinkedQueue {
         return temp_node.data;
     }
 
-    public void clearListRecursive(Node head) {
-        
+    public void clearListRecursive(Node node) {
+        if (node == null) {
+            this.head = null;
+            return;
+        }
+        clearListRecursive(node.next);
+        node.next = null;
+
+    }
+
+    public void clearListIterative() {
+        Node next;
+        while (this.head != null) {
+            next = this.head.next; // Make a temporary Node to hold the next Node
+            this.head.next = null; // Make the next node null
+            this.head = next; // Make the head the copy we made earlier
+        }
     }
 }

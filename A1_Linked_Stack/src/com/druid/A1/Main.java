@@ -10,9 +10,10 @@ public class Main {
             queue_1.enqueue(i);
         }
         //stack_1.displayRecursive(stack_1.head);
-        queue_1.displayRecursive(queue_1.head);
-        //System.out.println(queue_1.getListSizeRecursive(queue_1.head));
-        System.out.println(queue_1.listContainsRecursive(9, queue_1.head));
+        queue_1.displayIterative();
+        queue_1.clearListIterative();
+        System.out.println();
+        queue_1.displayIterative();
         
     }
 }
