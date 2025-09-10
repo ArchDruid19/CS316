@@ -7,7 +7,7 @@ public class LinkedStack {
         this.head = null;
     }
 
-    public void push(Person value) {
+    public void push(int value) {
         // Adds a value to the top of the list
         Node temp_node = new Node(value);
 
@@ -19,24 +19,24 @@ public class LinkedStack {
         }
     }
 
-    public Person pop() {
+    public Integer pop() {
         // Removes and returns the top value in the list
         if (this.head == null) {
             System.out.println("The list is empty!");
             return null;
         } else {
-            Person temp_person = this.head.person;
+            int temp_num = this.head.data;
             this.head = this.head.next;
-            return temp_person;
+            return temp_num;
         }
     }
 
-    public Person peek() {
+    public int peek() {
         // Returns the top value in the list
         if (this.head == null) {
-            return null;
+            return -1;
         } else {
-            return this.head.person;
+            return this.head.data;
         }
     }
 
@@ -46,17 +46,53 @@ public class LinkedStack {
     }
 
     public void displayIterative() {
+        if (this.head == null) {
+            System.out.println("The list is empty!");
+        }
         Node temp_node = this.head;
         while (temp_node != null) {
-            temp_node.person.displayPerson();
+            System.out.println(temp_node.data);
             temp_node = temp_node.next;
         }
     }
 
     public void displayRecursive(Node head) {
         if (head != null) {
-            head.person.displayPerson();
+            System.out.println(head.data);
             displayRecursive(head.next);
         }
+    }
+
+    public void contains(int name, Node head) {
+        if (head == null) {
+            return;
+        }
+        if (head.data == name) {
+            System.out.println("found!");
+        }
+        contains(name, head.next);
+
+    }
+
+    public int size(Node head) {
+        // For every recusive call until the head is null, add 1
+        if (head == null) {
+            return 0;
+        }
+        return 1 + size(head.next);
+    }
+
+    public void clearIteratively() {
+        while (this.head != null) {
+            this.head = this.head.next;
+        }
+    }
+
+    public void clearRecursive(Node head) {
+        if (head == null) {
+            return;
+        }
+        this.head = this.head.next;
+        clearRecursive(head.next);
     }
 }

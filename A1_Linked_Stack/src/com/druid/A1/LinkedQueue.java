@@ -8,7 +8,7 @@ public class LinkedQueue {
         this.head = null;
     }
 
-    public void enqueue(Person data) {
+    public void enqueue(int data) {
         // Must push new members into the back (like a line at the store)
         Node temp_node = new Node(data);
         if (head == null) {
@@ -23,14 +23,14 @@ public class LinkedQueue {
         }
     }
 
-    public Person dequeue() {
+    public int dequeue() {
         // First condition: the list is empty
         if (this.head == null) {
             System.out.println("The list is empty!");
-            return null;
+            return -1;
         }
         // Second condition: the list has 1 item
-        Person temp_person = this.head.person;
+        int temp_num = this.head.data;
 
         if (this.head.next == null) {
             this.head = null;
@@ -38,14 +38,14 @@ public class LinkedQueue {
             this.head = this.head.next;
         }
         
-        return temp_person;
+        return temp_num;
     }
 
-    public Person peek() {
+    public int peek() {
         if (this.head != null) {
-            return this.head.person;
+            return this.head.data;
         } else {
-            return null;
+            return -1;
         }
     }
 
@@ -56,7 +56,7 @@ public class LinkedQueue {
     public void displayIterative() {
         Node temp_node = this.head;
         while(temp_node != null) {
-            temp_node.person.displayPerson();
+            System.out.println(temp_node.data);
             temp_node = temp_node.next;
 
         }
@@ -64,8 +64,23 @@ public class LinkedQueue {
 
     public void displayRecursive(Node head) {
         if (head != null) {
-            head.person.displayPerson();
+            System.out.println(head.data);
             displayRecursive(head.next);
         } 
+    }
+
+    public int size(Node head) {
+        if (head != null) {
+            return 1 + size(head.next);
+        }
+        return 0;
+        
+    }
+
+    public Node getRear(Node head) {
+        if (head.next == null) {
+            return head;
+        }
+       return getRear(head.next);
     }
 }

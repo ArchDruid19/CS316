@@ -1,12 +1,12 @@
 package com.druid.A1;
 
 public class Node {
-    //int data;
-    Person person;
+    Integer data;
+    //Person person;
     Node next;
 
-    public Node(Person data) {
-        this.person = data;
+    public Node(int data) {
+        this.data = data;
         this.next = null;
     }
 }
