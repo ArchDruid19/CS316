@@ -1,7 +1,9 @@
 package com.druid.recursion;
 public class Main {
     public static void main(String[] args) {
-        syracuseSequence(12);
+        System.out.println(syracuseSequence(12));
+
+        
     }
 
     public static void printDecending(int n) {
@@ -45,17 +47,15 @@ public class Main {
         return addTwoPositiveNumbers(a + 1, b - 1);
     }
 
-    public static int syracuseSequence(int n) {
+    public static String syracuseSequence(int n) {
         if (n <= 1) { // If n is less than or equal to 1, print 1
-            System.out.println(1);
-            return 1;
+            return "1";
         }
         if (n % 2 == 0) { // If n is even, divide it by 2
-            System.out.println((n));
-            return syracuseSequence((n)/2);
+            return n + " " + syracuseSequence((n)/2);
         } else {
-            System.out.println(n); // If n is odd, times it by 3 and add 1
-            return syracuseSequence((3*n) + 1);
+           // If n is odd, times it by 3 and add 1
+           return n + " " + syracuseSequence((3*n) + 1);
         }
     }
 }

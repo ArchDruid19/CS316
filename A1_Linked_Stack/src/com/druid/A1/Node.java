@@ -1,7 +1,14 @@
 package com.druid.A1;
 
+/*
+ * Data contains an integer while next containers a pointer
+ * to the next node in the list
+ * 
+ * Using the Integer wrapper class so its possible to return null
+ */
+
 public class Node {
-    Integer data; // Using the integer wrapper class because somtimes we need to return null
+    Integer data;
     Node next;
 
     public Node(int data) {

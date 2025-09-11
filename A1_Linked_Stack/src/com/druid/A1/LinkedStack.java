@@ -1,4 +1,9 @@
 package com.druid.A1;
+/*
+ * Stack implemented using a linked list | new nodes are pushed on the head, and popped
+ * off the head
+ * 
+ */
 
 public class LinkedStack {
     Node head;
@@ -7,8 +12,11 @@ public class LinkedStack {
         this.head = null;
     }
 
-    public void push(int value) {
-        // Adds a value to the top of the list
+    public void push(Integer value) {
+        /*
+         * Adds a value to the start of the list by setting the old head to the next value
+         * of the node being added, and then setting the head to the node being added. 
+         */ 
         Node temp_node = new Node(value);
 
         if (this.head == null) {
@@ -21,6 +29,9 @@ public class LinkedStack {
 
     public Integer pop() {
         // Removes and returns the top value in the list
+        // Sets the head of the list to the next Node in the list,
+        // which severs the connection between the old head
+        // and the entire list
         if (this.head == null) {
             System.out.println("The list is empty!");
             return null;
@@ -32,7 +43,7 @@ public class LinkedStack {
     }
 
     public Integer peek() {
-        // Returns the top value in the list
+        // Returns the top value in the list unless the list is empty
         if (this.head == null) {
             return null;
         } else {
@@ -41,7 +52,9 @@ public class LinkedStack {
     }
 
     public boolean isEmpty() {
-        // Checks if the list is empty
+        // Checks if the list is empty by checking if the head
+        // has items in it. If the head is null, then the list must
+        // be empty.
         return this.head == null;
     }
 
@@ -55,7 +68,8 @@ public class LinkedStack {
 
     public void displayRecursive(Node head) {
         /*
-         * Display the parameters (Node) data value until it is null
+         * For each recursive call we print the nodes data value and a space
+         * until we reach a null node, in which case we print a line
          */
         if (head == null) {
             System.out.println();
@@ -67,6 +81,7 @@ public class LinkedStack {
     }
 
     public void displayIterative() {
+        // Walk through the list and print each Node's data member until we reach the end
         if (this.head == null) {
             System.out.println("The list is empty!");
         }
@@ -81,18 +96,23 @@ public class LinkedStack {
         /*
          * Checks if the parameters data member is equal to what is being searched, otherwise
          * it will build AR until it either traverses the list and nothing is found, in which 
-         * case it returns false, or the value is found and it returns true
+         * case it returns false, or the value is found and it returns true. O(n) time complexity
          */
         if (head == null) {
             return false;
         }
-        if (head.data.equals(number)) { // We have to do this becuse we are using Integer and not int
+        if (head.data.equals(number)) {
             return true;
         }
         return containsElementRecursive(number, head.next);
     }
 
     public boolean containsElementIterative(Integer number) {
+        /*
+         * Walk through the list until we either find a number that matches
+         * the value inputted, else return false to signify that
+         * the value was not found. O(n) time complexity
+         */
         Node temp_current_node = this.head;
         while (temp_current_node != null) {
             if (temp_current_node.data.equals(number)) {
@@ -105,33 +125,33 @@ public class LinkedStack {
 
     public void reverseListRecursive(Node node) {
         if (node != null) {
+            if (node.next == null) {
+                this.head = node;
+            }
             reverseListRecursive(node.next);
-            this.head = node;
+
         }
     }
 
     public void reverseListIterative() {
+        Node cur_node = this.head;
+        while (cur_node != null) {
+            
+        }
 
     }
 
     public void clearListIteratively() {
         /*
-         * Advance through the list, each time setting the next node
-         * to null and then setting the head of the list to a copy
-         * of the next node
+         * Disconnects the head from the list which
+         * effectivly removes all entries
          */
-        Node current;
-        while (this.head != null) {
-            current = this.head.next;
-            this.head.next = null;
-            this.head = current;
-        }
+        this.head = null;
     }
 
     public void clearListRecursive(Node head) {
         /* Walk through the list all the way to the back,
         / then set each Node to null as activation records are popped
-        / but this makes NO sense (FIX THIS)
         */ 
         if (head == null) {
             this.head = null;

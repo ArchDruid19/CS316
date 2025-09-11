@@ -1,5 +1,9 @@
 package com.druid.A1;
 
+/*
+ * Queue implemented using a linked list | new nodes are added to the back, and popped from the top
+ */
+
 public class LinkedQueue {
     Node head;
 
@@ -8,40 +12,57 @@ public class LinkedQueue {
     }
 
     public void enqueue(Integer data) {
-        // Must push new members into the back (like a line at the store)
+        /*
+         * If the list is empty, simply asign the new node to the head.
+         * If the list has items in it, go through the list until we reach the last node
+         * and then asign the last nodes next value to the node being added.
+         * 
+         * This runs in O(n) time, but can be significantly improved by using a tail
+         * pointer so the last node can be acsessed in O(1) time.
+         */
+
         Node temp_node = new Node(data);
         if (head == null) {
             this.head = temp_node;
         } else {
             Node current_node = this.head;
-            while (current_node.next != null) { // Go to the tail and then point tail.next to the node being added
+            while (current_node.next != null) {
                 current_node = current_node.next;
             }
-            // if we assign a tail in the constructor it is possible to do this operation in
-            // constant time
             current_node.next = temp_node;
         }
     }
 
     public Integer dequeue() {
-        // First condition: the list is empty
+        /*
+         * First condition: the list is empty, which means removal is impossible
+         * 
+         * Second condition: the list has 1 item, which means we make a copy of the data
+         * in the node to return it and then set the head to null
+         * 
+         * Third condition: the list has more than 1 item, which means we move the head to the next
+         * node which severs the connection between the old head and the list
+         */
+
         if (this.head == null) {
             System.out.println("The list is empty!");
             return null;
         }
-        // Second condition: the list has 1 item
-        int temp_num = this.head.data;
+        Integer temp_num = this.head.data;
 
         if (this.head.next == null) {
             this.head = null;
-        } else { // Third condition: the list has more than 1 item
+        } else { // 
             this.head = this.head.next;
         }
-
         return temp_num;
     }
 
     public Integer peek() {
+        /*
+         * Return the data stored in the head to check what is going to be
+         * removed
+         */
         if (this.head != null) {
             return this.head.data;
         } else {
@@ -50,6 +71,9 @@ public class LinkedQueue {
     }
 
     public boolean isEmpty() {
+        /*
+         * If the head is empty, then the list must be empty
+         */
         return this.head == null;
     }
 
