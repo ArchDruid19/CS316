@@ -29,10 +29,12 @@ public class LinkedStack {
     }
 
     public Integer pop() {
-        // Removes and returns the top value in the list
-        // Sets the head of the list to the next Node in the list,
-        // which severs the connection between the old head
-        // and the entire list
+        /*
+         * Removes and returns the top value in the list
+         * Sets the head of the list to the next Node in the list,
+         * which severs the connection between the old head
+         * and the entire list 
+         */
         if (this.head == null) {
             System.out.println("The list is empty!");
             return null;
@@ -44,7 +46,9 @@ public class LinkedStack {
     }
 
     public Integer peek() {
-        // Returns the top value in the list unless the list is empty
+        /*
+         * Returns the top value in the list unless the list is empty
+         */ 
         if (this.head == null) {
             return null;
         } else {
@@ -53,14 +57,18 @@ public class LinkedStack {
     }
 
     public boolean isEmpty() {
-        // Checks if the list is empty by checking if the head
-        // has items in it. If the head is null, then the list must
-        // be empty.
+        /*
+         * Checks if the list is empty by checking if the head
+         * has items in it. If the head is null, then the list must
+         * be empty. 
+         */        
         return this.head == null;
     }
 
     public int getSizeRecursive(Node head, int size) {
-        // For every recusive call until the parameter is null, add 1
+        /*
+         * For every recusive call until the parameter is null, add 1
+         */ 
         if (head == null) {
             return size;
         }
@@ -69,6 +77,11 @@ public class LinkedStack {
     }
 
     public int getSizeIterative() {
+        /*
+         * Use a temporary pointer to the head
+         * to traverse the list, at each node adding 1
+         * to a counter
+         */
         Node temp_node = this.head;
         int count = 0;
         while (temp_node != null) {
@@ -94,8 +107,10 @@ public class LinkedStack {
     }
 
     public void displayIterative() {
-        // Walk through the list and print each Node's data member until we reach the
-        // end
+        /*
+         * Walk through the list and print each Node's data member until we reach the
+         * end
+         */
         if (this.head == null) {
             System.out.println("The list is empty!");
         }
@@ -140,31 +155,12 @@ public class LinkedStack {
         return false;
     }
 
-    public void reverseListRecursive(Node node) {
-        if (node != null) {
-            if (node.next == null) {
-                this.head = node;
-            }
-            reverseListRecursive(node.next);
-
-        }
-    }
-
-    public void reverseListIterative() {
-        Node cur_node = this.head;
-        while (cur_node != null) {
-
-        }
-
-    }
-
     public void clearListIteratively() {
         /*
          * Disconnects the head from the list which
          * effectivly removes all entries
          */
         //this.head = null;
-
         while (this.head != null) {
             this.head = this.head.next;
         }
@@ -176,7 +172,7 @@ public class LinkedStack {
          * / then set each Node to null as activation records are popped
          */
         if (head == null) {
-            //this.head = null;
+            this.head = null;
             return;
         }
         clearListRecursive(head.next);

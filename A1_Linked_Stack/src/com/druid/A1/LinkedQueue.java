@@ -78,8 +78,10 @@ public class LinkedQueue {
     }
 
     public int getListSizeRecursive(Node head, int size) {
-        // Return size once the head is null, else keep traversing the list
-        // adding 1 to size after each method call
+        /*
+         * Return size once the head is null, else keep traversing the list
+         * adding 1 to size after each method call
+         */
         if (head == null) {
             return size;
         }
@@ -98,6 +100,9 @@ public class LinkedQueue {
     }
 
     public void displayRecursive(Node head) {
+        /*
+         * Prints the queue in order
+         */
         if (head == null) {
             System.out.println();
         }
@@ -108,6 +113,9 @@ public class LinkedQueue {
     }
 
     public void displayRecursiveBackwards(Node head) {
+        /*
+         * Prints the queue backwards (as if it were a stack)
+         */
         if (head == null) {
             System.out.println();
             return;
@@ -120,7 +128,7 @@ public class LinkedQueue {
     }
 
     public void displayIterative() {
-        if (this.isEmpty()) {
+        if (this.head == null) {
             System.out.println("The list is empty!");
         }
         Node temp_node = this.head;
@@ -164,6 +172,12 @@ public class LinkedQueue {
     }
 
     public Integer getRearElementIterative() {
+        /*
+         * Create a temporary pointer to the head and then traverse the list
+         * until the point where the next node in the list is null.
+         * At this point we know that the node we are currently on is the last node,
+         * so simply return its data member
+         */
         Node temp_node = this.head;
         while (temp_node.next != null) {
             temp_node = temp_node.next;
@@ -172,6 +186,10 @@ public class LinkedQueue {
     }
 
     public void clearListRecursive(Node node) {
+        /*
+         * Clear each node of the list starting from the back using
+         * a non-tail recursive method
+         */
         if (node == null) {
             this.head = null;
             return;
@@ -182,11 +200,12 @@ public class LinkedQueue {
     }
 
     public void clearListIterative() {
-        Node next;
+        /*
+         * Continously set the head of the list to the next node until the end 
+         * where it is a null value
+         */
         while (this.head != null) {
-            next = this.head.next; // Make a temporary Node to hold the next Node
-            this.head.next = null; // Make the next node null
-            this.head = next; // Make the head the copy we made earlier
+            this.head = this.head.next;
         }
     }
 }
