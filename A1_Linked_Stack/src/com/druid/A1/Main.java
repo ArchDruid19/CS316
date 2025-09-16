@@ -9,11 +9,9 @@ public class Main {
             stack_1.push(i);
             queue_1.enqueue(i);
         }
-        //stack_1.displayRecursive(stack_1.head);
-        stack_1.displayRecursive(stack_1.head);
-        stack_1.reverseListRecursive(stack_1.head);
-        System.out.println();
-        stack_1.displayRecursive(stack_1.head);
+        queue_1.displayRecursive(queue_1.head);
+        queue_1.displayRecursiveBackwards(queue_1.head);
+        
         
     }
 }

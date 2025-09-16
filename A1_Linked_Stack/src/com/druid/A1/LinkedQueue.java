@@ -77,13 +77,13 @@ public class LinkedQueue {
         return this.head == null;
     }
 
-    public int getListSizeRecursive(Node head) {
-        // Return 0 once we traverse the entire list, else, keep adding 1 for every
-        // recursive call
+    public int getListSizeRecursive(Node head, int size) {
+        // Return size once the head is null, else keep traversing the list
+        // adding 1 to size after each method call
         if (head == null) {
-            return 0;
+            return size;
         }
-        return 1 + getListSizeRecursive(head.next);
+        return getListSizeRecursive(head.next, size + 1);
     }
 
     public int getListSizeIterative() {
@@ -103,7 +103,19 @@ public class LinkedQueue {
         }
         if (head != null) {
             System.out.print(head.data + " ");
-            displayRecursive(head.next);
+            displayRecursive(head.next);            
+        }
+    }
+
+    public void displayRecursiveBackwards(Node head) {
+        if (head == null) {
+            System.out.println();
+            return;
+        }
+        if (head != null) {
+            displayRecursiveBackwards(head.next);
+            System.out.print(head.data + " ");
+            
         }
     }
 
@@ -141,6 +153,10 @@ public class LinkedQueue {
     }
 
     public Integer getRearElementRecursive(Node head) {
+        /*
+         * The base case is when we reach the last element in the list, where
+         * we just return its data value.
+         */
         if (head.next == null) {
             return head.data;
         }
