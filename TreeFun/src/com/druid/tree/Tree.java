@@ -29,6 +29,23 @@ public class Tree {
         
     }
 
+    public void addToLeft(Node left_node) {
+        if (this.root == null) {
+            this.root = left_node;
+            return;
+        }
+        if (this.root.left == null) {
+            this.root.left = left_node;
+            return;
+        }
+
+        Node temp_node = this.root;
+        while (temp_node.left != null) {
+            temp_node = temp_node.left;
+        }
+        temp_node.left = left_node;
+    }
+
     public void printTree() {
         Node temp_node = this.root;
 
@@ -44,6 +61,19 @@ public class Tree {
         }
 
         System.out.println();
+    }
+
+    public void printTreeRecursive(Node root) {
+        if (root == null) {
+            return;
+        }
+        System.out.print(root.data + " ");
+        printTreeRecursive(root.right);
+        printTreeRecursive(root.left);
+    }
+
+    public void printTreeRecursiveWrapper() {
+        printTreeRecursive(this.root);
     }
     
 }
