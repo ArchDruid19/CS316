@@ -11,69 +11,107 @@ public class Tree {
         this.root = root;
     }
 
-    public void addToRight(Node right_node) {
+    public boolean insertIterative(Node insert_node) {
         if (this.root == null) {
-            this.root = right_node;
-            return;
-        }
-        if (this.root.right == null) {
-            this.root.right = right_node;
-            return;
-        }
+            this.root = insert_node;
+        } else {
+            Node previous_node = null;
+            Node current_node = this.root;
 
-        Node temp_node = this.root;
-        while (temp_node.right != null) {
-            temp_node = temp_node.right;
+            while (current_node != null) {
+                previous_node = current_node;
+
+                if (insert_node.data < current_node.data) {
+                    current_node = current_node.left;
+                } else if (insert_node.data > current_node.data) {
+                    current_node = current_node.right;
+                } else if (insert_node.data.equals(current_node.data)) {
+                    return false;
+                } else {
+                    return false;
+                }
+            }
+
+            if (insert_node.data < previous_node.data) {
+                previous_node.left = insert_node;
+            } else {
+                previous_node.right = insert_node;
+            }
         }
-        temp_node.right = right_node;
-        
+        return true;
     }
 
-    public void addToLeft(Node left_node) {
-        if (this.root == null) {
-            this.root = left_node;
-            return;
+    // Inorder
+    public String printTreeLVR(Node tree_root) {
+        if (tree_root == null) {
+            return "";
         }
-        if (this.root.left == null) {
-            this.root.left = left_node;
-            return;
-        }
-
-        Node temp_node = this.root;
-        while (temp_node.left != null) {
-            temp_node = temp_node.left;
-        }
-        temp_node.left = left_node;
+        return printTreeLVR(tree_root.left) + tree_root.data + " " + printTreeLVR(tree_root.right);
     }
 
-    public void printTree() {
-        Node temp_node = this.root;
-
-        while (temp_node != null) {
-            System.out.print(temp_node.data + " ");
-            temp_node = temp_node.right;
-
+    public String printTreeRVL(Node tree_root) {
+        if (tree_root == null) {
+            return "";
         }
-        temp_node = this.root.left;
-        while (temp_node != null) {
-            System.out.print(temp_node.data + " ");
-            temp_node = temp_node.left;
-        }
-
-        System.out.println();
+        return printTreeRVL(tree_root.right) + tree_root.data + " " + printTreeRVL(tree_root.left);
     }
 
-    public void printTreeRecursive(Node root) {
-        if (root == null) {
-            return;
+    // Preorder
+    public String printTreeVLR(Node tree_root) {
+        if (tree_root == null) {
+            return "";
         }
-        System.out.print(root.data + " ");
-        printTreeRecursive(root.right);
-        printTreeRecursive(root.left);
+        return tree_root.data + " " + printTreeVLR(tree_root.left) + printTreeVLR(tree_root.right);
     }
 
-    public void printTreeRecursiveWrapper() {
-        printTreeRecursive(this.root);
+    public String printTreeVRL(Node tree_root) {
+        if (tree_root == null) {
+            return "";
+        }
+        return tree_root.data + " " + printTreeVRL(tree_root.right) + printTreeVRL(tree_root.left);
     }
-    
+
+    // Postorder
+    public String printTreeLRV(Node tree_root) {
+        if (tree_root == null) {
+            return "";
+        }
+        return printTreeLRV(tree_root.left) + printTreeLRV(tree_root.right) + tree_root.data + " ";
+    }
+
+    public String printTreeRLV(Node tree_root) {
+        if (tree_root == null) {
+            return "";
+        }
+        return printTreeRLV(tree_root.right) + printTreeRLV(tree_root.left) + tree_root.data + " ";
+    }
+
+    public enum OrderOption {
+        LVR,
+        RVL,
+        VLR,
+        VRL,
+        LRV,
+        RLV
+    }
+
+    public String printTree(Node tree_root, OrderOption option) {
+        String sequence = "";
+        switch (option) {
+            case LVR:
+                if (tree_root == null) {
+                    return "";
+                }
+                sequence = printTree(tree_root.left, OrderOption.LVR) + tree_root.data + " " + printTree(tree_root.right, OrderOption.LVR);
+
+            case RVL:
+
+                break;
+
+            default:
+            break;
+        }
+
+        return sequence;
+    }
 }
