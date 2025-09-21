@@ -1,11 +1,11 @@
 package com.druid.tree;
 
-public class Node {
+public class BinaryTreeNode {
     Integer data;
-    Node left;
-    Node right;
+    BinaryTreeNode left;
+    BinaryTreeNode right;
 
-    public Node (Integer data) {
+    public BinaryTreeNode (Integer data) {
         this.data = data;
         this.left = null;
         this.right = null;
