@@ -29,7 +29,7 @@ public class BinaryTree {
         return this.root;
     }
 
-    public void insert(Integer data, TraversalMode option) {
+    public void insert(Integer data, TraversalMode option, BinaryTreeNode root) {
         /*
          * C++ Implementation from the book in Java
          * Traverse the tree going left if the data in the inserted node
@@ -62,6 +62,18 @@ public class BinaryTree {
                     previous.right = new BinaryTreeNode(data);
                 }
                 break;
+            case RECURSIVE:
+            if (this.root == null) {
+                this.root = new BinaryTreeNode(data);
+            }
+            if (data < root.data) {
+                insert(data, TraversalMode.RECURSIVE, root.left);
+            } else if (data > root.data) {
+                insert(data, TraversalMode.RECURSIVE, root.right);
+            }
+
+            
+            break;
 
             default:
                 break;

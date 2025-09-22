@@ -11,7 +11,7 @@ public class Main {
         Integer[] numbers = {23, 10, 30, 5, 15, 25, 40, 1, 8};
 
         for (int i = 0; i < numbers.length; i++) {
-            test_tree.insert(numbers[i], TraversalMode.ITERATIVE);
+            test_tree.insert(numbers[i], TraversalMode.ITERATIVE, test_tree.getRoot());
         }
 
         System.out.println(test_tree.printTree(test_tree.root, TraversalType.LVR));
