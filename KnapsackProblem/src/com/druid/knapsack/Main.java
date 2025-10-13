@@ -1,31 +1,37 @@
 package com.druid.knapsack;
 // This is the knapsack problem without using dynamic programming
 
-import java.util.ArrayList;
-
-// Step 1. Create all combinations of the given Knapsack items and return them as a
-
-// 2D array
-
-// Step 2. Go through each array (combination) in the 2D array and compute the total weight's and values
-// for each array (combination). If the weight of an array > our knapsack weight limit, toss it out; else,
-// add it to a new list that contains ONLY combinations under or at the weight limit.
-
-// Step 3. Go through the list and find the combination with the greatest total value
-
 public class Main {
     public static void main(String[] args) {
 
-        ArrayList<ArrayList<Integer>> test_array = new ArrayList<>();
+        int[] weights = { 1, 3, 4, 5 };
+        int[] values = { 1, 4, 5, 7 };
+        int max_weight = 7;
 
-        ArrayList<Integer> annoyed = new ArrayList<Integer>();
+        int x = recKnapsack(weights.length, values, weights, max_weight);
+        
+        // System.out.println(weights[weights.length]);
+        System.out.println(x);
+        
+    }
 
-        annoyed.add(1);
-        annoyed.add(10);
+    public static int recKnapsack(int n, int[] values, int[] weight, int max_weight) {
+        if (n <= 0 || max_weight == 0) {
+            return 0;
+        }
 
-        test_array.add(annoyed);
-
-        System.out.println(test_array.get(0).get(1));
+        if (weight[n - 1] > max_weight) {
+            return recKnapsack(n - 1, values, weight, max_weight);
+        } else {
+            int pick = values[n - 1] + recKnapsack(n - 1, values, weight, max_weight - weight[n - 1]);
+            int not_pick = recKnapsack(n - 1, values, weight, max_weight);
+            if (pick > not_pick) {
+                return pick;
+            } else {
+                return not_pick;
+            }
+            
+        }
 
     }
 
