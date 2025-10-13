@@ -23,7 +23,7 @@ def main():
 
     best_combination = []
     biggest_val = 0
-    cur_val = 0
+
     # Go through the combination list and find the total weights and values of each combination,
     # checking if the total weight is <= the allotted weight. If it is, we keep track of the 
     # largest value we find and the combination that provided that largest value. 
