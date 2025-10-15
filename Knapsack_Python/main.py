@@ -43,13 +43,14 @@ def main():
     max_weight = 7
 
     # Create the items that will be in the knapsack with there given names and weights
-    item1 = KnapsackItem("a", 1, 1)
-    item2 = KnapsackItem("b", 3, 4)
-    item3 = KnapsackItem("c", 4, 5)
-    item4 = KnapsackItem("d", 5, 7)
+    item1 = KnapsackItem("a", 3, 2)
+    item2 = KnapsackItem("b", 1, 2)
+    item3 = KnapsackItem("c", 3, 4)
+    item4 = KnapsackItem("d", 4, 5)
+    item5 = KnapsackItem("e", 2, 3)
 
     # Put items in an item list
-    item_list = [item1, item2, item3, item4]
+    item_list = [item1, item2, item3, item4, item5]
 
     getLargestKnapsackVal(item_list, max_weight)
 
