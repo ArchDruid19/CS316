@@ -38,6 +38,7 @@ public class Main {
                 for (int j = 0; j < band[i].size(); j++) {
                     System.out.print(band[i].get(j) + " ");
                     sorted_array[temp_pass_idx] = band[i].get(j);
+                    // sorted_array[temp_pass_idx] = band[i].pop();
                     temp_pass_idx++;
                 }
             }
