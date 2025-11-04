@@ -1,26 +1,70 @@
 package com.druid.mergesort;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
-        int[] a = {1, 2, 3, 4};
-        int[] b = {45, 21, 23, 10};
+        int[] a = { 54, 67, 32 };
 
-        merge(a, b);
-        
+        System.out.println("Array before merge sorting:");
+        printArray(a);
+
+        mergeSort(a);
+
+        System.out.println("Array after merge sorting:");
+        printArray(a);
+
     }
 
-    public static int[] merge(int[] a, int[] b) {
+    public static void merge(int[] arr, int low, int mid, int high) {
+        int[] left = Arrays.copyOfRange(arr, low, mid + 1);
+        int[] right = Arrays.copyOfRange(arr, mid + 1, high + 1);
         int i = 0;
         int j = 0;
-        int k = 0;
-        int[] sorted_array = new int[a.length + b.length];
+        int k = low;
 
-        while (i < a.length && j < b.length) {
-            System.out.println(a[i]);
-            System.out.println(b[j]);
-            i++;
-            j++;
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) {
+                arr[k] = left[i];
+                i += 1;
+            } else {
+                arr[k] = right[j];
+                j += 1;
+            }
+            k += 1;
         }
-        return null;
+
+        while (i < left.length) {
+            arr[k] = left[i];
+            i += 1;
+            k += 1;
+        }
+
+        while (j < right.length) {
+            arr[k] = right[j];
+            j += 1;
+            k += 1;
+        }
+    }
+
+    public static void mergeSortHelper(int[] arr, int low, int high) {
+        if (low < high) {
+            int mid = (low + high) / 2;
+
+            mergeSortHelper(arr, low, mid);
+            mergeSortHelper(arr, mid + 1, high);
+            merge(arr, low, mid, high);
+        }
+    }
+
+    public static void mergeSort(int[] arr) {
+        mergeSortHelper(arr, 0, arr.length - 1);
+    }
+
+    public static void printArray(int[] arr) {
+        for (int e : arr) {
+            System.out.printf("%-7s ", e);
+        }
+        System.out.println();
     }
 }
