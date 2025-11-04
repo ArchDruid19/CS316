@@ -2,8 +2,6 @@ package com.druid.radixsort;
 
 import java.util.LinkedList;
 
-// To know how the largest number we must walk through the list in O(n) time 
-
 public class Main {
     public static void main(String[] args) {
         System.out.println("Unsorted Array: ");
@@ -41,6 +39,7 @@ public class Main {
             // Go to each cell in the band and pop each number, adding the popped number to the
             // sorted array
             for (int i = 0; i < band.length; i++) {
+                // Pop each number out of the band, doing it until each cell is empty
                 while (!band[i].isEmpty()) {
                     System.out.print(band[i].peek() + " ");
                     Integer temp_val = band[i].pop();
@@ -60,7 +59,7 @@ public class Main {
 
 
 
-    
+
     public static int[] radixSortRecursive(int[] arr, int place, int repetitions) {
         // The array is sorted once all repitions have been done
         if (repetitions <= 0) {
