@@ -1,4 +1,4 @@
-package com.druid.merging;
+package com.druid.mergesort;
 
 public class Main {
     public static void main(String[] args) {
