@@ -20,13 +20,17 @@ public class Main {
         int place = 1;
         int num_reps = getRepetitions(arr);
         int[] sorted_array = arr;
+        // Create the band that will hold the numbers per place
+        LinkedList<Integer>[] band = new LinkedList[10];
+
+        // Initalize the list with LinkedLists that will acts as queues
+        for (int i = 0; i < band.length; i++) {
+            band[i] = new LinkedList<Integer>();
+        }
+
         for (int reps = 0; reps < num_reps; reps++) {
-            LinkedList<Integer>[] band = new LinkedList[10];
 
-            for (int i = 0; i < band.length; i++) {
-                band[i] = new LinkedList<Integer>();
-            }
-
+            // Find where each number in the original list should go in the band
             for (int k = 0; k < arr.length; k++) {
                 int place_idx = (arr[k] / place) % 10;
                 band[place_idx].add(arr[k]);
@@ -34,11 +38,13 @@ public class Main {
 
             int temp_pass_idx = 0;
 
+            // Go to each cell in the band and pop each number, adding the popped number to the
+            // sorted array
             for (int i = 0; i < band.length; i++) {
-                for (int j = 0; j < band[i].size(); j++) {
-                    System.out.print(band[i].get(j) + " ");
-                    sorted_array[temp_pass_idx] = band[i].get(j);
-                    // sorted_array[temp_pass_idx] = band[i].pop();
+                while (!band[i].isEmpty()) {
+                    System.out.print(band[i].peek() + " ");
+                    Integer temp_val = band[i].pop();
+                    sorted_array[temp_pass_idx] = temp_val;
                     temp_pass_idx++;
                 }
             }
@@ -50,6 +56,11 @@ public class Main {
         return sorted_array;
     }
 
+
+
+
+
+    
     public static int[] radixSortRecursive(int[] arr, int place, int repetitions) {
         // The array is sorted once all repitions have been done
         if (repetitions <= 0) {
