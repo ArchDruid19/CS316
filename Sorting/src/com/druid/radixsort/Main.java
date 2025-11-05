@@ -4,12 +4,12 @@ import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Unsorted Array: ");
+        System.out.println("Unsorted Array:");
         int[] arr = { 237, 146, 259, 348, 152, 163, 235, 48, 36, 62 };
         printArray(arr);
 
         radixSortIterative(arr);
-        System.out.println("Sorted Array: ");
+        System.out.println("Sorted Array:");
         printArray(arr);
 
     }
