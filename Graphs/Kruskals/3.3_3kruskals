@@ -1,0 +1,27 @@
+G.add_edge("A", "B", 3)
+G = Graph()
+G.weighted = true
+G.add_vertices(["A", "B"])
+
+G.add_edge("A", "B", 3)
+
+
+
+
+print("Diameter:", G.diameter())
+print("Radius:", G.radius())
+print("Center:", G.center())
+
+print("Eccentricities:")
+for v in G.vertices():
+    ecc = G.eccentricity(v)
+    print(f"{v}: {ecc}")
+
+G.graphplot(edge_labels=True,save_pos=True,vertex_size=100,layout='spring').show()
+
+from sage.graphs.spanning_tree import kruskal
+E=kruskal(G, check=True);E
+
+T=Graph(E)
+T.set_pos(G.get_pos())
+T.graphplot(edge_labels=True).show()
