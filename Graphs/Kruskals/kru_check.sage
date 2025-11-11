@@ -2,22 +2,20 @@ G = Graph()
 G.weighted = true
 G.add_vertices([1, 2, 3, 4, 5, 6])
 
-G.add_edge(7,0,1)
-G.add_edge(0,3,1)
-G.add_edge(4,6,1)
+G.add_edge(1, 6, 10)
+G.add_edge(1, 2, 28)
 
-G.add_edge(2,1,2)
-G.add_edge(1,4,2)
+G.add_edge(6, 5, 25)
 
-G.add_edge(7,2,3)
-G.add_edge(0,1,3)
-G.add_edge(5,6,3)
+G.add_edge(2, 3, 16)
+G.add_edge(2, 7, 14)
 
-G.add_edge(2,0,4)
-G.add_edge(1,3,4)
-G.add_edge(0,4,4)
+G.add_edge(5, 7, 24)
+G.add_edge(5, 4, 22)
 
-G.add_edge(3,5,5)
+G.add_edge(3, 4, 12)
+
+G.add_edge(4, 7, 18)
 
 
 
