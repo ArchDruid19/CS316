@@ -2,8 +2,8 @@ import networkx as nx
 
 
 def printEdges(edges):
-    for u, v, data in edges.edges(data=True):
-        print(u, "->", v, data, end="\n")
+    for u, v, weight in edges.edges(data=True):
+        print(u, "->", v, weight, end="\n")
 
 def readEdgesFromFile(file_name):
     print("Loading file")
@@ -28,13 +28,15 @@ def getEdges(algorithm_type):
 
     T = nx.minimum_spanning_tree(G, algorithm=algorithm_type)
 
-    printEdges(T)
-
     return T
 
 
 def main():
-    edges = getEdges("prim")
+    prim_edges = getEdges("prim")
+    printEdges(prim_edges)
+    print("\n")
+    kru_edges = getEdges("kruskal")
+    printEdges(kru_edges)
 
 
 if __name__ == "__main__":
