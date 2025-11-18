@@ -31,7 +31,7 @@ public class Main {
     }
 
     public static void calculateLCSTableWrapper(String a, String b) {
-        // Create the a x b table with 1 extra 'padding'
+        // Create the a x b table with 1 extra 'padding' as the first row and column are all 0's
         int[][] table = new int[a.length() + 1][b.length() + 1];
         calculateLCSTable(a, b, table);
     }
