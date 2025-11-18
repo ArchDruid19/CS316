@@ -20,6 +20,22 @@ public class Main {
             table[0][j] = 0;
         }
 
+        // Go through the table and check if the chars in each string match. If they do, then table[i][j] = 1 + table[i - 1][j - 1]
+        // If the chars dont match, then table[i][j] = Max(table[i - 1][j] OR table[i][j - 1])
+        // Start filling the table at idx=[1,1] because the first row and column will always be 0
+        for (int i = 1; i < table.length; i++) {
+            for (int j = 1; j < table[i].length; j++) {
+                System.out.println("Comparing " + a.charAt(i - 1) + " With " + b.charAt(j - 1));
+                if (a.charAt(i - 1) == b.charAt(j - 1)) {
+                    table[i][j] = 1 + table[i - 1][j - 1];
+                } else {
+                    table[i][j] = Math.max(table[i - 1][j], table[i][j - 1]);
+                }
+            }
+        }
+
+        // Now that the table is created, we need to backtrack to find the actual characters that make up the LCS
+
         // Print the table at the end
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {

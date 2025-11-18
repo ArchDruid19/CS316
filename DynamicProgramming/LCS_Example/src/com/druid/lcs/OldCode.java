@@ -2,6 +2,7 @@ package com.druid.lcs;
 
 public class OldCode {
     // Recursive implementation that doesnt really work because you cant backtrack the table easily
+    // This is also a memoization table
     public static int performLCSTable(char[] a, char[] b, int i, int j, int[][] table) {
         // Base case where we stop performing LCS
         if (i == a.length || j == b.length) {
