@@ -20,7 +20,7 @@ public class Main {
             table[0][j] = 0;
         }
 
-        // Go through the table and check if the chars in each string match. If they do, then table[i][j] = 1 + table[i - 1][j - 1]
+        // Go through the table and check if the individual characters in each string match. If they do, then table[i][j] = 1 + table[i - 1][j - 1]
         // If the chars dont match, then table[i][j] = Max(table[i - 1][j] OR table[i][j - 1])
         // Start filling the table at idx=[1,1] because the first row and column will always be 0
         for (int i = 1; i < table.length; i++) {
@@ -35,6 +35,7 @@ public class Main {
         }
 
         // Now that the table is created, we need to backtrack to find the actual characters that make up the LCS
+        // 
 
         // Print the table at the end
         for (int i = 0; i < table.length; i++) {
@@ -47,7 +48,7 @@ public class Main {
     }
 
     public static void calculateLCSTableWrapper(String a, String b) {
-        // Create the a x b table with 1 extra 'padding' as the first row and column are
+        // Create a table with dimensions [a.length() + 1] X [b.length() +1] with 1 extra 'padding' as the first row and column are
         // all 0's
         int[][] table = new int[a.length() + 1][b.length() + 1];
         calculateLCSTable(a, b, table);
