@@ -16,13 +16,18 @@ public class Main {
     }
 
     public static void MSTPrim(Integer[][] adj_matrix) {
+        // Step 1. Create two arrays: one that tracks the nodes we have visted, and the other
+        // to track the nodes we have yet to vist
         boolean[] visited_nodes = new boolean[adj_matrix.length];
         boolean[] unvisited_nodes = new boolean[adj_matrix.length];
 
+        // Mark all nodes except the first as being unvisited
         for (int i = 1; i < unvisited_nodes.length; i++) {
             unvisited_nodes[i] = true; 
+            System.out.println(unvisited_nodes[i]);
         }
 
+        // Mark the first node as being visited
         visited_nodes[0] = true;
 
     }
