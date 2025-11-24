@@ -1,9 +1,11 @@
 package com.druid.LCS;
 
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        String first = "bd";
-        String second = "abcd";
+        String first = "jello";
+        String second = "yellow";
 
         calculateLCSTableWrapper(first, second);
     }
@@ -35,7 +37,37 @@ public class Main {
         }
 
         // Now that the table is created, we need to backtrack to find the actual characters that make up the LCS
-        // 
+        // We must start from the bottom right corner of the table and work towards the top
+
+        // Create two index variables, row and length, that are the lengths of the strings provided
+        int row = a.length();
+        int col = b.length();
+        // Array where we add either 0 or 1 to find the string
+        ArrayList<Boolean> res = new ArrayList<>();
+
+        while (row > 0 && col > 0) {
+            if (a.charAt(row - 1) == b.charAt(col - 1)) {
+                res.add(true);
+                // If the characters match, then we add the character to a list and move diagonally
+                row -= 1;
+                col -= 1;
+            } else {
+                if (table[row - 1][col] > table[row][col - 1]) {
+                    // If the value in the cell to the left is greater than the value in the cell above it, we move left
+                    res.add(false);
+                    row -= 1;
+                } else {
+                    // If the value in the cell above is greater, we move up
+                    res.add(false);
+                    col -= 1;
+                }
+            }
+        }
+
+        for (boolean items : res) {
+            System.out.print(items + " ");
+        }
+        System.out.println();
 
         // Print the table at the end
         for (int i = 0; i < table.length; i++) {
