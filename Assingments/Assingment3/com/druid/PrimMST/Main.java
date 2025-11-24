@@ -1,7 +1,5 @@
 package com.druid.PrimMST;
 
-import java.util.LinkedList;
-
 public class Main {
     public static void main(String[] args) {
         Integer[][] test_adj_matrix = {
