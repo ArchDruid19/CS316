@@ -7,10 +7,9 @@ import java.util.PriorityQueue;
 public class Main {
     public static void main(String[] args) {
         huffmanCompression("Banana Bandana");
-        computeHuffmanCompressionRatio("Banana Bandana");
     }
 
-    public static void huffmanCompression(String a) {
+    public static Map<Character, String> huffmanCompression(String a) {
         /*
          * Step 1. Find the number of times each character appears in the string
          * Use a dictionary (Hashmap) to assign count occurences to each letter
@@ -26,7 +25,7 @@ public class Main {
         for (int i = 0; i < a.length(); i++) {
             int count = 0;
             for (int j = 0; j < a.length(); j++) {
-                // System.out.println("Comparing " + a.charAt(i) + " With " + a.charAt(j));
+                System.out.println("Comparing " + a.charAt(i) + " With " + a.charAt(j));
                 if (a.charAt(i) == a.charAt(j)) {
                     count++;
                 }
@@ -89,6 +88,10 @@ public class Main {
         Map<Character, String> code_dictionary = new HashMap<Character, String>();
         getCodeDictionary(huffman_tree_root, code_dictionary);
         printCodeDictionary(code_dictionary);
+        computeHuffmanCompressionRatio(a, code_dictionary, letter_occurences);
+
+        // Return the code dictionary so the end user can see what each letter was compressed into
+        return code_dictionary;
 
     }
 
@@ -133,13 +136,27 @@ public class Main {
         System.out.println();
     }
 
-    public static double computeHuffmanCompressionRatio(String a) {
+    public static double computeHuffmanCompressionRatio(String a, Map<Character, String> code_dictionary, Map<Character, Integer> letter_counts) {
         /*
          * Each character is 8 bits, so the original size is the length of the string
          * multiplied by 8
          */
-        int num_bits_original = a.length() * 8;
+        double num_bits_original = a.length() * 8;
+        // Convert the values of the letter repitions map to an array
+        Integer[] letter_reps = letter_counts.values().toArray(new Integer[0]);
+
+        int letter_reps_idx = 0;
+        double total_compressed_bit_size = 0;
+        // For each variable bit in the code dictionary, multiply the size of the bit by
+        // the total number of times the letter appears in the string 
+        for (String variable_bits : code_dictionary.values()) {
+            total_compressed_bit_size += variable_bits.length() * letter_reps[letter_reps_idx];
+            letter_reps_idx++;
+        }
         System.out.println(num_bits_original);
+        System.out.println(total_compressed_bit_size);
+        double compression_ratio = total_compressed_bit_size / num_bits_original;
+        System.out.println(compression_ratio);
         return 0.0;
     }
 }

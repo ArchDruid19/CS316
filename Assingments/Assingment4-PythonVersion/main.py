@@ -35,9 +35,15 @@ def main():
 
     # Set the first node to visited to start the algorithm (you can pick any arbirarty node but the first is picked for ease)
     v_nodes[0] = True
-    v_nodes[1] = True
 
-    print(getEdgeNeighbors(v_nodes, adj_matrix))
+    edges = getEdgeNeighbors(v_nodes, adj_matrix)
+
+    min_weight = maxsize
+    for edge in edges:
+        if edge[2] < min_weight:
+            min_weight = edge[2]
+
+    print(min_weight)
 
 
 if __name__ == "__main__":
