@@ -1,12 +1,29 @@
 package com.druid.Huffman;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        huffmanCompression("Banana Bandana");
+        String user_string = getUserString();
+        Map<Character, String> code_dictionary = huffmanCompression(user_string);
+        printCodeDictionary(code_dictionary);
+    }
+
+    // Simple function to get a user string from the keyboard
+    public static String getUserString() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Please enter a string");
+        String user_string = input.nextLine();
+
+        input.close();
+
+        return user_string;
     }
 
     public static Map<Character, String> huffmanCompression(String a) {
@@ -25,7 +42,7 @@ public class Main {
         for (int i = 0; i < a.length(); i++) {
             int count = 0;
             for (int j = 0; j < a.length(); j++) {
-                System.out.println("Comparing " + a.charAt(i) + " With " + a.charAt(j));
+                // System.out.println("Comparing " + a.charAt(i) + " With " + a.charAt(j));
                 if (a.charAt(i) == a.charAt(j)) {
                     count++;
                 }
@@ -34,7 +51,7 @@ public class Main {
             // System.out.println(count);
         }
 
-        printHashMap(letter_occurences);
+        // printHashMap(letter_occurences);
 
         /*
          * Step 2. Create a min-heap (PriorityQueue) that holds huffman nodes sorted by
@@ -87,10 +104,12 @@ public class Main {
         HuffmanNode huffman_tree_root = huffman_min_heap.poll();
         Map<Character, String> code_dictionary = new HashMap<Character, String>();
         getCodeDictionary(huffman_tree_root, code_dictionary);
-        printCodeDictionary(code_dictionary);
-        computeHuffmanCompressionRatio(a, code_dictionary, letter_occurences);
 
-        // Return the code dictionary so the end user can see what each letter was compressed into
+        double compression_ratio = computeHuffmanCompressionRatio(a, code_dictionary, letter_occurences);
+
+        System.out.printf("You have compressed the string: %s \nwith a compression ratio of: %.4f \n", a, compression_ratio);
+        // Return the code dictionary so the end user can decipher what each letter was
+        // compressed into
         return code_dictionary;
 
     }
@@ -100,9 +119,7 @@ public class Main {
     public static void traverseLRVHelper(HuffmanNode root, String variable_bit_code, Map<Character, String> code_dict) {
         if (root == null) {
             return;
-        }
-
-        if (root.left == null && root.right == null) {
+        } else if (root.left == null && root.right == null) {
             /*
              * If the node being examined is a LEAF node (meaning it is a character node),
              * we add the leaf node character and the variable length bit code
@@ -110,14 +127,17 @@ public class Main {
              */
             code_dict.put(root.character, variable_bit_code);
             return;
+        } else {
+            // When we go left we add '0' to the variable length bit code
+            traverseLRVHelper(root.left, variable_bit_code + "0", code_dict);
+            // When we go right we add '1' to the variable length bit code
+            traverseLRVHelper(root.right, variable_bit_code + "1", code_dict);
         }
-        // When we go left we add '0' to the variable length bit code
-        traverseLRVHelper(root.left, variable_bit_code + "0", code_dict);
-        // When we go right we add '1' to the variable length bit code
-        traverseLRVHelper(root.right, variable_bit_code + "1", code_dict);
+
     }
 
     public static void getCodeDictionary(HuffmanNode root, Map<Character, String> code_dict) {
+        // Helper function as the variable bit code always starts as an empty string
         traverseLRVHelper(root, "", code_dict);
     }
 
@@ -130,33 +150,37 @@ public class Main {
     }
 
     public static void printCodeDictionary(Map<Character, String> printable_map) {
+        // Print the Code Dictionary
         for (Map.Entry<Character, String> entry : printable_map.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
         System.out.println();
     }
 
-    public static double computeHuffmanCompressionRatio(String a, Map<Character, String> code_dictionary, Map<Character, Integer> letter_counts) {
+    public static double computeHuffmanCompressionRatio(String a, Map<Character, String> code_dictionary,
+            Map<Character, Integer> letter_counts) {
         /*
-         * Each character is 8 bits, so the original size is the length of the string
+         * Each ASCII character is 8 bits, so the original size is the length of the
+         * string
          * multiplied by 8
          */
         double num_bits_original = a.length() * 8;
+
         // Convert the values of the letter repitions map to an array
-        Integer[] letter_reps = letter_counts.values().toArray(new Integer[0]);
+        List<Integer> letter_reps = new ArrayList<>(letter_counts.values());
 
         int letter_reps_idx = 0;
         double total_compressed_bit_size = 0;
-        // For each variable bit in the code dictionary, multiply the size of the bit by
-        // the total number of times the letter appears in the string 
+
         for (String variable_bits : code_dictionary.values()) {
-            total_compressed_bit_size += variable_bits.length() * letter_reps[letter_reps_idx];
+            // Multiply the number of times each character appears with the length of that
+            // characters variable bit code to get the new file size
+            total_compressed_bit_size += variable_bits.length() * letter_reps.get(letter_reps_idx);
             letter_reps_idx++;
         }
-        System.out.println(num_bits_original);
-        System.out.println(total_compressed_bit_size);
+
         double compression_ratio = total_compressed_bit_size / num_bits_original;
-        System.out.println(compression_ratio);
-        return 0.0;
+
+        return compression_ratio;
     }
 }
