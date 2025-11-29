@@ -52,7 +52,7 @@ def backTrackLCSTable(lcs_table, string_a, string_b):
             # The value above is larger: Move up
             col -= 1
 
-    # Create a string from the array of strings 
+    # Create one string from the array of strings 
     lcs_string = "".join(lcs_result)
     return lcs_string
 

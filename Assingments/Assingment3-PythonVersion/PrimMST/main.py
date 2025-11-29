@@ -1,6 +1,24 @@
 from sys import maxsize
 
 
+def readAdjMatrixFromFile(file_name):
+    adj_matrix = []
+    # Open the file and loop through it, splitting each line to and putting it into an array
+    adj_row = 0
+    adj_col = 0
+    with open(file_name) as f:
+        for items in f:
+            # Split the items which gives an array of strings
+            string_row = items.split()
+            num_row = []
+            for num in string_row:
+                string_to_num = int(num)
+                num_row.append(string_to_num)
+            adj_matrix.append(num_row)
+    printMatrix(adj_matrix)
+    return adj_matrix
+
+
 def getEdgeNeighbors(visited_nodes, adj_matrix):
     edges = []
     for i in range(len(adj_matrix)):
@@ -61,6 +79,7 @@ def createPrimAdjMatrix(mst_list, original_adj_matrix_size):
 
 
 def findTotalMSTWeight(mst_edge_list):
+    # Simply add up all of the weights in the mst list
     total_weight = 0
     for edges in mst_edge_list:
         total_weight += edges[2]
@@ -72,6 +91,7 @@ def printMatrix(matrix):
         for j in range(len(matrix[i])):
             print("%-5s" % (matrix[i][j]), end=" ")
         print()
+    print()
 
 
 def performPrimMST(adj_matrix):
@@ -103,16 +123,20 @@ def performPrimMST(adj_matrix):
     total_mst_weight = findTotalMSTWeight(mst_edge_list)
     print("The total weight of the MST is: %s" % (total_mst_weight))
 
+    return mst_adj_matrix
+
 
 def main():
-    adj_matrix = [
-        [0, 4, 0, 0, 0, 8],
-        [4, 0, 7, 0, 0, 11],
-        [0, 7, 0, 2, 3, 0],
-        [0, 0, 2, 0, 6, 7],
-        [0, 0, 3, 6, 0, 1],
-        [8, 11, 0, 7, 1, 0],
-    ]
+    # adj_matrix = [
+    #     [0, 4, 0, 0, 0, 8],
+    #     [4, 0, 7, 0, 0, 11],
+    #     [0, 7, 0, 2, 3, 0],
+    #     [0, 0, 2, 0, 6, 7],
+    #     [0, 0, 3, 6, 0, 1],
+    #     [8, 11, 0, 7, 1, 0],
+    # ]
+
+    adj_matrix = readAdjMatrixFromFile("PrimMST/adj_matrix.txt")
 
     performPrimMST(adj_matrix)
 

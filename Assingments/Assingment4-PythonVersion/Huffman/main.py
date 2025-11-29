@@ -9,7 +9,7 @@ def createLetterOccurenceDict(string_a):
     # We are only worrying about lowercase letters
     string_a = string_a.lower()
     # Step 1.
-    # Create a dictionary that will hold character: letter occurences
+    # Create a dictionary that will hold character as keys and letter occurences as values
     # dictionaries dont allow duplicate keys so when we count letters we can keep updating the key values with any new # of letter occurce we find
     letter_occurence_dictionary = {}
 
@@ -29,7 +29,7 @@ def createHuffmanTree(letter_occurence_dictionary):
     huffman_min_heap = []
     for items in letter_occurence_dictionary:
         # Step 3.
-        # Create a huffman leaf node that contains a frequency and character, with the left and right set to none
+        # Create huffman leaf nodes that contain a frequency and character, with the left and right set to none
         temp_node = HuffmanNode(letter_occurence_dictionary[items], items, None, None)
 
         # Push the new node into a min-heap so we can later create the tree
@@ -98,7 +98,10 @@ def calculateHuffmanCompression(count_dict, variable_bit_codes_dict, string_a):
 
     compression_ratio = compressed_size / original_size
     # Print the original and compressed sizes using string formatting
-    print("Original size: %.4f bits\nCompressed size: %.4f bits" % (original_size, compressed_size))
+    print(
+        "Original size: %.4f bits\nCompressed size: %.4f bits"
+        % (original_size, compressed_size)
+    )
     print("Total compressed size: %.4f/%.4f" % (compressed_size, original_size))
     print("The string has been compressed with a ratio of: %.4f" % (compression_ratio))
     return compression_ratio
@@ -109,7 +112,9 @@ def performHuffmanEncoding(string_a):
     huffman_root_node = createHuffmanTree(count_dict)
     variable_bit_codes_dict = {}
     traverseLRV(huffman_root_node, variable_bit_codes_dict, "")
-    compressed_size = calculateHuffmanCompression(count_dict, variable_bit_codes_dict, string_a)
+    compressed_size = calculateHuffmanCompression(
+        count_dict, variable_bit_codes_dict, string_a
+    )
 
     # Return the code dictionary as the end user will need this to decode the messege
     return variable_bit_codes_dict
