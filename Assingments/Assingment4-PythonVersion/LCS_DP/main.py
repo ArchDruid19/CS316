@@ -1,15 +1,7 @@
-def main():
-    print("Hi")
-    first_string = "jello"
-    second_string = "yellow"
-
-    performLCS(first_string, second_string)
-
-
 def createLCSTable(string_a, string_b):
     # Step 1.
-    # Get the string lengths to make an n+1 X m+1 table as the first
-    # row and column of the lcs table will always be 0's
+    # Get the string lengths to make an (n+1 X m+1) table
+    # The row and column of the lcs table will always be 0's
     a_length = len(string_a)
     b_length = len(string_b)
 
@@ -41,9 +33,6 @@ def backTrackLCSTable(lcs_table, string_a, string_b):
     row = len(string_a)
     col = len(string_b)
     lcs_result = []
-    print(lcs_table[row][col])
-    print(row, col)
-    print(string_a[row - 1], string_b[col - 1])
 
     # Iterate through the table until we get to the beginning
     while row != 0 and col != 0:
@@ -62,22 +51,34 @@ def backTrackLCSTable(lcs_table, string_a, string_b):
         else:
             # The value above is larger: Move up
             col -= 1
-    print(lcs_result)
-    return lcs_result
+
+    # Create a string from the array of strings 
+    lcs_string = "".join(lcs_result)
+    return lcs_string
 
 
 def performLCS(string_a, string_b):
     lcs_table = createLCSTable(string_a, string_b)
     lcs_result = backTrackLCSTable(lcs_table, string_a, string_b)
+    return lcs_result
 
 
 def printTable(table):
-    print("-" * 50)
+    # Print the table for visual and debugging purposes
+    print("-" * (len(table) * 3))
     for i in range(len(table)):
         for j in range(len(table[i])):
             print("%-5s" % (table[i][j]), end="")
         print("\n")
-    print("-" * 50)
+    print("-" * (len(table) * 3))
+
+
+def main():
+    first_string = "saginaw"
+    second_string = "gain"
+
+    lcs_string = performLCS(first_string, second_string)
+    print(lcs_string)
 
 
 if __name__ == "__main__":

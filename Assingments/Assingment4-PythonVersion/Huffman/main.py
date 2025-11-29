@@ -66,7 +66,7 @@ def createHuffmanTree(letter_occurence_dictionary):
 def traverseLRV(huffman_root_node, variable_bit_codes_dict, string_result):
     # Step 5.
     # construct a dictionary of variable bit length codes using the standard post-order recursive method to traverse
-    # a binary tree
+    # a binary tree (post order finds the leaf nodes of a subtree first)
     if huffman_root_node is None:
         return
     # If both the left and right node are nothing, then we MUST be at a leaf node (character node)
@@ -79,6 +79,9 @@ def traverseLRV(huffman_root_node, variable_bit_codes_dict, string_result):
 
 
 def calculateHuffmanCompression(count_dict, variable_bit_codes_dict, string_a):
+    # Step 6.
+    # Find how much we compressed the string by taking the compressed size of the string and dividing it by the original size
+
     # Each ASCII character is 8 bits, so multiply the length of the string by 8 to get the original size
     original_size = len(string_a) * 8
 
@@ -89,21 +92,27 @@ def calculateHuffmanCompression(count_dict, variable_bit_codes_dict, string_a):
     compressed_size = 0
 
     # Multiply the lengths of the variable bit codes by the number of times they appear in the string to
-    # get the total number of compressed bits (if a letter appears 3 times and has a code length of 2, then it uses 6 total bits; etc...)
+    # get the total number of compressed bits (if a letter appears 3 times and has a code length of 2, then that letter uses 6 total bits; etc...)
     for i in range(len(count_dict_values)):
         compressed_size += count_dict_values[i] * len(variable_bit_codes_dict_values[i])
 
-    print(compressed_size / original_size)
-    return compressed_size / original_size
+    compression_ratio = compressed_size / original_size
+    # Print the original and compressed sizes using string formatting
+    print("Original size: %.4f bits\nCompressed size: %.4f bits" % (original_size, compressed_size))
+    print("Total compressed size: %.4f/%.4f" % (compressed_size, original_size))
+    print("The string has been compressed with a ratio of: %.4f" % (compression_ratio))
+    return compression_ratio
 
 
 def performHuffmanEncoding(string_a):
-    # Function that constructs the huffman encoding
     count_dict = createLetterOccurenceDict(string_a)
     huffman_root_node = createHuffmanTree(count_dict)
     variable_bit_codes_dict = {}
     traverseLRV(huffman_root_node, variable_bit_codes_dict, "")
-    calculateHuffmanCompression(count_dict, variable_bit_codes_dict, string_a)
+    compressed_size = calculateHuffmanCompression(count_dict, variable_bit_codes_dict, string_a)
+
+    # Return the code dictionary as the end user will need this to decode the messege
+    return variable_bit_codes_dict
 
 
 def main():
