@@ -12,7 +12,7 @@ def createLCSTable(string_a, string_b):
         lcs_table.append([0] * (b_length + 1))
 
     # Step 3 (most important step)
-    # Iterate through the table going from top down,
+    # Iterate through the table going from top down starting at idx=[1, 1] (as the first row and col will always be 0's),
     # each iteration checking if the characters at the table indicies match. If they do, we add 1
     # from the cell diagonal and to the left of the current cell being examined or
     # if they dont match, we take the larger of two values: the cell from the left or the cell on top of the current cell being examined

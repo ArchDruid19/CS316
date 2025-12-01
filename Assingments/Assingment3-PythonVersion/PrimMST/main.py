@@ -3,17 +3,18 @@ from sys import maxsize
 
 def readAdjMatrixFromFile(file_name):
     adj_matrix = []
-    # Open the file and loop through it, splitting each line to and putting it into an array
-    adj_row = 0
-    adj_col = 0
+    # Open the file and loop through it, splitting each line and putting it into an array
     with open(file_name) as f:
         for items in f:
             # Split the items which gives an array of strings
             string_row = items.split()
             num_row = []
+            # Iterate through the string and covert each entry into an integer
             for num in string_row:
                 string_to_num = int(num)
+                # append the converted string to a temporary array
                 num_row.append(string_to_num)
+            # append the temporary array to the adjaceny matrix
             adj_matrix.append(num_row)
     printMatrix(adj_matrix)
     return adj_matrix
@@ -97,6 +98,7 @@ def printMatrix(matrix):
 def performPrimMST(adj_matrix):
     # Create a boolean array of nodes that have already been visited
     v_nodes = [False] * len(adj_matrix)
+
     # Mark the first node as true (visited) so we can start the algorithm.
     # It is possible to start from ANY node, but for simplicity we will always start at the first node
     v_nodes[0] = True
@@ -106,15 +108,18 @@ def performPrimMST(adj_matrix):
     mst_edge_list = []
 
     while True:
-        # Once all nodes have been visited, break out of the while loop
+        # Once all nodes have been visited (all entries in v_nodes are True), break out of the while loop
         if all(v_nodes):
             break
+        # Get all edge neighbors of nodes we have visited
         edges = getEdgeNeighbors(v_nodes, adj_matrix)
+        # Take only the edges whos destination is not in the visited array
         valid_edges = findValidEdges(v_nodes, edges)
+        # Find the valid edge with the smallest weight
         edge_with_min_weight = findValidEdgeWithMinimumWeight(valid_edges)
         # Add the best edge to the mst edge list
         mst_edge_list.append(edge_with_min_weight)
-        # Mark the destionation vertex of the best edge as visited
+        # Mark the destination vertex of the best edge as visited
         v_nodes[edge_with_min_weight[1]] = True
 
     # print(mst_edge_list)

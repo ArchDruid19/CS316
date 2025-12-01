@@ -37,7 +37,7 @@ def createHuffmanTree(letter_occurence_dictionary):
 
     # Step 4.
     # Pop out nodes two at a time and combine them with a parent node and then add that parent node back into
-    # the min-heap
+    # the min-heap until there is only 1 node left in the min-heap
     while len(huffman_min_heap) != 1:
         # Pop out a left node from the heap
         left_node = heapq.heappop(huffman_min_heap)
@@ -63,7 +63,7 @@ def createHuffmanTree(letter_occurence_dictionary):
     return huffman_tree_root_node
 
 
-def traverseLRV(huffman_root_node, variable_bit_codes_dict, string_result):
+def traverseLRV(huffman_root_node, variable_bit_codes_dict, bit_code):
     # Step 5.
     # construct a dictionary of variable bit length codes using the standard post-order recursive method to traverse
     # a binary tree (post order finds the leaf nodes of a subtree first)
@@ -72,10 +72,12 @@ def traverseLRV(huffman_root_node, variable_bit_codes_dict, string_result):
     # If both the left and right node are nothing, then we MUST be at a leaf node (character node)
     # In this case, we add the character as the key of the dictionary, and the string_result (variable bit code) as the value
     if huffman_root_node.left is None and huffman_root_node.right is None:
-        variable_bit_codes_dict[huffman_root_node.character] = string_result
+        variable_bit_codes_dict[huffman_root_node.character] = bit_code
 
-    traverseLRV(huffman_root_node.left, variable_bit_codes_dict, string_result + "0")
-    traverseLRV(huffman_root_node.right, variable_bit_codes_dict, string_result + "1")
+    # When we traverse left, we add a '0' to the string
+    traverseLRV(huffman_root_node.left, variable_bit_codes_dict, bit_code + "0")
+    # When we traverse right, we add a '1' to the string
+    traverseLRV(huffman_root_node.right, variable_bit_codes_dict, bit_code + "1")
 
 
 def calculateHuffmanCompression(count_dict, variable_bit_codes_dict, string_a):
@@ -108,9 +110,13 @@ def calculateHuffmanCompression(count_dict, variable_bit_codes_dict, string_a):
 
 
 def performHuffmanEncoding(string_a):
+    # Count letter occurences in the string
     count_dict = createLetterOccurenceDict(string_a)
+    # Build the Huffman tree and get the root of the Huffman tree 
     huffman_root_node = createHuffmanTree(count_dict)
+    # Create a dictionary that holds the variable bit codes 
     variable_bit_codes_dict = {}
+    # Fill the code dictionary with characters as the keys and the bit code as values
     traverseLRV(huffman_root_node, variable_bit_codes_dict, "")
     compressed_size = calculateHuffmanCompression(
         count_dict, variable_bit_codes_dict, string_a
@@ -119,9 +125,13 @@ def performHuffmanEncoding(string_a):
     # Return the code dictionary as the end user will need this to decode the messege
     return variable_bit_codes_dict
 
+def printCodeDictionary(code_dict):
+    for codes in code_dict:
+        print("%s: %s" % (codes, code_dict[codes]))
 
 def main():
-    performHuffmanEncoding("saginaw")
+    code_dictionary = performHuffmanEncoding("saginaw")
+    printCodeDictionary(code_dictionary)
 
 
 if __name__ == "__main__":
