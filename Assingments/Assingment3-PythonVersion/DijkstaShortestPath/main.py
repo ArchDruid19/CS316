@@ -17,12 +17,67 @@ def getEdgeNeighbors(visited_nodes, adj_matrix):
 
     return edges
 
+
 def updateDistances(distance_arr, edge_neighbors):
     for edges in edge_neighbors:
         if distance_arr[edges[0]] + edges[2] < distance_arr[edges[1]]:
-            # Update the new distance as the original distance + the distance of the edge
+            # Update the new distance as the distance from source + distance of the edge only if it is
+            # smaller
             distance_arr[edges[1]] = distance_arr[edges[0]] + edges[2]
 
+
+def pickSmallestEdgeDestination(visited_nodes, distances):
+    min_dist = maxsize
+    next_node = -1
+    # Find the smallest weight to get the next node to place in the visited list
+    for i in range(len(distances)):
+        # Only consider nodes we havnt visited
+        if visited_nodes[i] is False:
+            # Find the smallest distance in the array for nodes that havnt been visited
+            if distances[i] < min_dist:
+                min_dist = distances[i]
+                next_node = i
+    print(next_node)
+
+    return next_node
+
+
+def performDikjstra(adj_w_matrix):
+    distances = [maxsize] * len(adj_w_matrix)
+    visited_nodes = [False] * len(adj_w_matrix)
+
+    # Set the source node to be visited
+    visited_nodes[0] = True
+
+    # Set the source node to have 0 weight
+    distances[0] = 0
+
+    while True:
+        # Break out of the loop once all nodes have been visited
+        if all(visited_nodes):
+            break
+        # Create a list of ALL edges to other nodes that we have visited
+        edges = getEdgeNeighbors(visited_nodes, adj_w_matrix)
+
+        # Update (relax) distances from the list of edges
+        updateDistances(distances, edges)
+
+        print(distances)
+        print(edges)
+
+        # Find the smallest node that hasnt been visited
+        next_node = pickSmallestEdgeDestination(visited_nodes, distances)
+
+        # Mark that smallest node as visited
+        visited_nodes[next_node] = True
+
+    return distances
+
+
+def printDistancesToNodes(distances):
+    # Skip over the first node as it is the source
+    for i in range(1, len(distances)):
+        print("Source -> Node %s: %s" % (i, distances[i]))
 
 
 def main():
@@ -34,33 +89,8 @@ def main():
         [0, 3, 9, 2, 0],
     ]
 
-    # Set all distances to 'infinity' (which is just a VERY large number provided by maxsize)
-    distances = [maxsize] * len(adj_w_matrix)
-    visited_nodes = [False] * len(adj_w_matrix)
-
-    # Set the source node to be visited
-    visited_nodes[0] = True
-
-    # Set the source node to have 0 weight
-    distances[0] = 0
-
-    edges = getEdgeNeighbors(visited_nodes, adj_w_matrix)
-
-    updateDistances(distances, edges)
-
-    print(distances)
-
-    print(edges)
-
-    visited_nodes[4] = True
-
-    other_test = getEdgeNeighbors(visited_nodes, adj_w_matrix)
-
-    updateDistances(distances, other_test)
-
-    print(distances)
-
-    print(other_test)
+    distances = performDikjstra(adj_w_matrix)
+    printDistancesToNodes(distances)
 
 
 if __name__ == "__main__":

@@ -23,18 +23,17 @@ def createLCSTable(string_a, string_b):
             else:
                 lcs_table[i][j] = max(lcs_table[i - 1][j], lcs_table[i][j - 1])
 
-    printTable(lcs_table)
     return lcs_table
 
 
 def backTrackLCSTable(lcs_table, string_a, string_b):
     # Step 4.
-    # Backtrack through the table starting at the most bottom-right value (which is [len(string_a), len(string_b)] bcs of 0 indexing)
+    # Backtrack through the table starting at the most bottom-right value
     row = len(string_a)
     col = len(string_b)
     lcs_result = []
 
-    # Iterate through the table until we get to the beginning
+    # Iterate through the table until we get to idx = [0, 0]
     while row != 0 and col != 0:
         if string_a[row - 1] == string_b[col - 1]:
             # If the characters match we must go diagonally to the left
@@ -52,7 +51,7 @@ def backTrackLCSTable(lcs_table, string_a, string_b):
             # The value above is larger: Move up
             col -= 1
 
-    # Create one string from the array of strings 
+    # Create one string from the array of strings
     lcs_string = "".join(lcs_result)
     return lcs_string
 
@@ -60,6 +59,7 @@ def backTrackLCSTable(lcs_table, string_a, string_b):
 def performLCS(string_a, string_b):
     lcs_table = createLCSTable(string_a, string_b)
     lcs_result = backTrackLCSTable(lcs_table, string_a, string_b)
+    # printTable(lcs_table)
     return lcs_result
 
 
