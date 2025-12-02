@@ -71,7 +71,7 @@ def createPrimAdjMatrix(mst_list, original_adj_matrix_size):
         prim_adj_matrix.append([0] * original_adj_matrix_size)
 
     # For each edge in the mst list, we will set prim_adj_matrix[source][destination] to be the weight of the edge along with
-    # prim_adj_matrix[destination][source] as it is a symmetrical matrix
+    # prim_adj_matrix[destination][source] as it is an undirected graph (meaning the matrix is symmetric)
     for edges in mst_list:
         prim_adj_matrix[edges[0]][edges[1]] = edges[2]
         prim_adj_matrix[edges[1]][edges[0]] = edges[2]
@@ -122,9 +122,10 @@ def performPrimMST(adj_matrix):
         # Mark the destination vertex of the best edge as visited
         v_nodes[edge_with_min_weight[1]] = True
 
-    # print(mst_edge_list)
+    # Create an adjaceny matrix from the results of the MST
     mst_adj_matrix = createPrimAdjMatrix(mst_edge_list, len(adj_matrix))
     printMatrix(mst_adj_matrix)
+    # Find the total weight of the MST
     total_mst_weight = findTotalMSTWeight(mst_edge_list)
     print("The total weight of the MST is: %s" % (total_mst_weight))
 
@@ -132,18 +133,11 @@ def performPrimMST(adj_matrix):
 
 
 def main():
-    # adj_matrix = [
-    #     [0, 4, 0, 0, 0, 8],
-    #     [4, 0, 7, 0, 0, 11],
-    #     [0, 7, 0, 2, 3, 0],
-    #     [0, 0, 2, 0, 6, 7],
-    #     [0, 0, 3, 6, 0, 1],
-    #     [8, 11, 0, 7, 1, 0],
-    # ]
+    # Read an adjaceny matrix from a file
+    adj_matrix = readAdjMatrixFromFile("PrimMST/test_adj_matrix.txt")
 
-    adj_matrix = readAdjMatrixFromFile("PrimMST/adj_matrix.txt")
-
-    performPrimMST(adj_matrix)
+    # Get the MST as an adjaceny matrix
+    adj_matrix_mst = performPrimMST(adj_matrix)
 
 
 if __name__ == "__main__":
