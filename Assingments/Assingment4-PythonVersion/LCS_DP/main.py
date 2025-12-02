@@ -1,7 +1,6 @@
 def createLCSTable(string_a, string_b):
-    # Step 1.
-    # Get the string lengths to make an (n+1 X m+1) table
-    # The row and column of the lcs table will always be 0's
+    # Step 1 - Get the string lengths to make an (n+1 X m+1) table
+    # The first row and column of the lcs table will always be 0's
     a_length = len(string_a)
     b_length = len(string_b)
 
@@ -11,11 +10,11 @@ def createLCSTable(string_a, string_b):
     for i in range(a_length + 1):
         lcs_table.append([0] * (b_length + 1))
 
-    # Step 3 (most important step)
-    # Iterate through the table going from top down starting at idx=[1, 1] (as the first row and col will always be 0's),
-    # each iteration checking if the characters at the table indicies match. If they do, we add 1
+    # Step 3 - Fill the LCS Table (most important step)
+    # Iterate through the table starting at idx=[1, 1] (as the first row and col will always be 0's),
+    # each iteration we check if the characters match. If they do, we add 1
     # from the cell diagonal and to the left of the current cell being examined or
-    # if they dont match, we take the larger of two values: the cell from the left or the cell on top of the current cell being examined
+    # if they dont match, we take the larger of two values: the cell from the left or the cell on above the current cell being examined
     for i in range(1, len(lcs_table)):
         for j in range(1, len(lcs_table[i])):
             if string_a[i - 1] == string_b[j - 1]:
@@ -26,38 +25,47 @@ def createLCSTable(string_a, string_b):
     return lcs_table
 
 
+def backTrackLCSTableHelper(lcs_table, string_a, string_b, row, col, lcs_result):
+    # Step 4 - Backtrack through the table starting at the most bottom-right value
+    # When either the row or column of the table is 0, we know we are done backtracking
+    if row == 0 or col == 0:
+        return
+
+    # If the characters match, we move diagonally left
+    # This is the opposite movement of what happends when we construct the table; if they match we must go backwards diagonally
+    if string_a[row - 1] == string_b[col - 1]:
+        # Insert the matching character into an array of strings
+        # We must add each new character to the front of the array (like a stack) or else the string will be reversed at the end
+        lcs_result.insert(0, string_a[row - 1])
+
+        # Call the function again, this time moving diagonally left
+        backTrackLCSTableHelper(
+            lcs_table, string_a, string_b, row - 1, col - 1, lcs_result
+        )
+    elif lcs_table[row - 1][col] > lcs_table[row][col - 1]:
+        # If the cell to the left of the one currently being examined is less than the cell directly above the one being examined
+        # we move left
+        backTrackLCSTableHelper(lcs_table, string_a, string_b, row - 1, col, lcs_result)
+    else:
+        # If the cell directly above is larger, we move up
+        backTrackLCSTableHelper(lcs_table, string_a, string_b, row, col - 1, lcs_result)
+
+
 def backTrackLCSTable(lcs_table, string_a, string_b):
-    # Step 4.
-    # Backtrack through the table starting at the most bottom-right value
-    row = len(string_a)
-    col = len(string_b)
+    # Step 5 - Create an empty array that will contain the characters in the LCS
     lcs_result = []
+    # Fill the array with the characters in the LCS
+    backTrackLCSTableHelper(
+        lcs_table, string_a, string_b, len(string_a), len(string_b), lcs_result
+    )
 
-    # Iterate through the table until we get to idx = [0, 0]
-    while row != 0 and col != 0:
-        if string_a[row - 1] == string_b[col - 1]:
-            # If the characters match we must go diagonally to the left
-            # This is what we do when the string match in the creation of the table: if string_a[i - 1] == string_b[j - 1] then we add 1 from the cell diagonally left (line 30)
-            # insert every character that matches to the front of the lcs_result list
-            lcs_result.insert(0, string_a[row - 1])
-            row -= 1
-            col -= 1
-        # If the strings dont match, we check which cell gives a larger value: either the cell to the left or the cell above the one currently being examined
-        # This is what we do in line 32: when we find the larger value we know thats the direction we came from
-        elif lcs_table[row - 1][col] > lcs_table[row][col - 1]:
-            # The value to the left is larger: Move left
-            row -= 1
-        else:
-            # The value above is larger: Move up
-            col -= 1
-
-    # Create one string from the array of strings
-    lcs_string = "".join(lcs_result)
-    return lcs_string
+    # Join the characters in the array and return it as 1 string
+    return "".join(lcs_result)
 
 
 def performLCS(string_a, string_b):
     lcs_table = createLCSTable(string_a, string_b)
+
     lcs_result = backTrackLCSTable(lcs_table, string_a, string_b)
     # printTable(lcs_table)
     return lcs_result
@@ -73,12 +81,16 @@ def printTable(table):
     print("-" * (len(table) * 3))
 
 
-def main():
-    first_string = "saginaw"
-    second_string = "gain"
+def printLCSString(string_a, string_b, lcs_string):
+    print("The LCS of '%s' and '%s' is: %s" % (string_a, string_b, lcs_string))
 
+
+def main():
+    first_string = input("Please enter the first string: ")
+    second_string = input("Please enter the second string: ")
     lcs_string = performLCS(first_string, second_string)
-    print(lcs_string)
+
+    printLCSString(first_string, second_string, lcs_string)
 
 
 if __name__ == "__main__":

@@ -21,8 +21,7 @@ def getEdgeNeighbors(visited_nodes, adj_matrix):
 def updateDistances(distance_arr, edge_neighbors):
     for edges in edge_neighbors:
         if distance_arr[edges[0]] + edges[2] < distance_arr[edges[1]]:
-            # Update the new distance as the distance from source + distance of the edge only if it is
-            # smaller
+            # Update the new distance as the distance from source + distance of the edge as long as the new weight is smaller
             distance_arr[edges[1]] = distance_arr[edges[0]] + edges[2]
 
 
@@ -31,9 +30,8 @@ def pickSmallestEdgeDestination(visited_nodes, distances):
     next_node = -1
     # Find the smallest weight to get the next node to place in the visited list
     for i in range(len(distances)):
-        # Only consider nodes we havnt visited
+        # We only consider the smallest edge of nodes that have NOT been visited yet
         if visited_nodes[i] is False:
-            # Find the smallest distance in the array for nodes that havnt been visited
             if distances[i] < min_dist:
                 min_dist = distances[i]
                 next_node = i
@@ -43,7 +41,9 @@ def pickSmallestEdgeDestination(visited_nodes, distances):
 
 
 def performDikjstra(adj_w_matrix):
+    # Create a distance array of 'infinity' values where each index correspondes to a node in the graph
     distances = [maxsize] * len(adj_w_matrix)
+    # Create a boolean array of visited nodes
     visited_nodes = [False] * len(adj_w_matrix)
 
     # Set the source node to be visited
@@ -70,6 +70,8 @@ def performDikjstra(adj_w_matrix):
 
         # Mark that smallest node as visited
         visited_nodes[next_node] = True
+    
+    # Once the loop is complete the distance array will hold the smallest weights to each node from the source
 
     return distances
 
