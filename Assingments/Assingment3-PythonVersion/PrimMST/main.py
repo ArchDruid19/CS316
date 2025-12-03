@@ -134,7 +134,7 @@ def performPrimMST(adj_matrix):
 
 def main():
     # Read an adjaceny matrix from a file
-    adj_matrix = readAdjMatrixFromFile("PrimMST/test_adj_matrix.txt")
+    adj_matrix = readAdjMatrixFromFile("PrimMST/adj_matrix.txt")
 
     # Get the MST as an adjaceny matrix
     adj_matrix_mst = performPrimMST(adj_matrix)
