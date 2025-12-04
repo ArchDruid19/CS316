@@ -1,22 +1,26 @@
 from sys import maxsize
 
 
-def readAdjMatrixFromFile(file_name):
+def readAdjMatrixFromFile(file_path):
     adj_matrix = []
-    # Open the file and loop through it, splitting each line and putting it into an array
-    with open(file_name) as f:
-        for items in f:
-            # Split the items which gives an array of strings
-            string_row = items.split()
-            num_row = []
-            # Iterate through the string and covert each entry into an integer
-            for num in string_row:
-                string_to_num = int(num)
-                # append the converted string to a temporary array
-                num_row.append(string_to_num)
-            # append the temporary array to the adjaceny matrix
-            adj_matrix.append(num_row)
-    printMatrix(adj_matrix)
+    try:
+        # Open the file and loop through it, splitting each line and putting it into an array
+        with open(file_path) as f:
+            for items in f:
+                # Split the items which gives an array of strings
+                string_row = items.split()
+                num_row = []
+                # Iterate through the string array and covert each entry into an integer
+                for num in string_row:
+                    string_to_num = int(num)
+                    # append the converted string to a temporary array
+                    num_row.append(string_to_num)
+                # append the temporary array to the adjaceny matrix
+                adj_matrix.append(num_row)
+    # If the file cannot be found, print an error messege
+    except FileNotFoundError:
+        print("File could not be located (check if the file path is correct)")
+
     return adj_matrix
 
 
@@ -49,12 +53,13 @@ def findValidEdges(visited_nodes, edges):
 
 
 def findValidEdgeWithMinimumWeight(valid_edges):
-    # We start the minimum weight as the largest possible value so
+    # We start the minimum weight as a very large value
     # on the first iteration we make the min_weight the first examined edge (under the implication that it cant have a weight greater than maxsize)
-    # and then keep comparing from their
+    # and then keep comparing from there
     min_weight = maxsize
     best_edge = []
     for edges in valid_edges:
+        # index 2 will always be the weight from a source to a destination
         if edges[2] < min_weight:
             min_weight = edges[2]
             best_edge = edges
@@ -96,6 +101,14 @@ def printMatrix(matrix):
 
 
 def performPrimMST(adj_matrix):
+
+    if len(adj_matrix) <= 0:
+        print("ERROR: Matrix is empty")
+        return
+    elif len(adj_matrix) > 10:
+        print("ERROR: Too many nodes have been used (maximum is 10)")
+        return
+
     # Create a boolean array of nodes that have already been visited
     v_nodes = [False] * len(adj_matrix)
 
@@ -113,18 +126,22 @@ def performPrimMST(adj_matrix):
             break
         # Get all edge neighbors of nodes we have visited
         edges = getEdgeNeighbors(v_nodes, adj_matrix)
+
         # Take only the edges whos destination is not in the visited array
         valid_edges = findValidEdges(v_nodes, edges)
+
         # Find the valid edge with the smallest weight
         edge_with_min_weight = findValidEdgeWithMinimumWeight(valid_edges)
+
         # Add the best edge to the mst edge list
         mst_edge_list.append(edge_with_min_weight)
+
         # Mark the destination vertex of the best edge as visited
         v_nodes[edge_with_min_weight[1]] = True
 
     # Create an adjaceny matrix from the results of the MST
     mst_adj_matrix = createPrimAdjMatrix(mst_edge_list, len(adj_matrix))
-    printMatrix(mst_adj_matrix)
+
     # Find the total weight of the MST
     total_mst_weight = findTotalMSTWeight(mst_edge_list)
     print("The total weight of the MST is: %s" % (total_mst_weight))
@@ -138,6 +155,7 @@ def main():
 
     # Get the MST as an adjaceny matrix
     adj_matrix_mst = performPrimMST(adj_matrix)
+    printMatrix(adj_matrix_mst)
 
 
 if __name__ == "__main__":

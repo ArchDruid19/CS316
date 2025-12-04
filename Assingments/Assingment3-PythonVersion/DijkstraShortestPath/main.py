@@ -3,19 +3,23 @@ from sys import maxsize
 
 def readAdjMatrixFromFile(file_path):
     adj_matrix = []
-    # Open the file and loop through it, splitting each line and putting it into an array
-    with open(file_path) as f:
-        for items in f:
-            # Split the items which gives an array of strings
-            string_row = items.split()
-            num_row = []
-            # Iterate through the string and covert each entry into an integer
-            for num in string_row:
-                string_to_num = int(num)
-                # append the converted string to a temporary array
-                num_row.append(string_to_num)
-            # append the temporary array to the adjaceny matrix
-            adj_matrix.append(num_row)
+    try:
+        # Open the file and loop through it, splitting each line and putting it into an array
+        with open(file_path) as f:
+            for items in f:
+                # Split the items which gives an array of strings
+                string_row = items.split()
+                num_row = []
+                # Iterate through the string array and covert each entry into an integer
+                for num in string_row:
+                    string_to_num = int(num)
+                    # append the converted string to a temporary array
+                    num_row.append(string_to_num)
+                # append the temporary array to the adjaceny matrix
+                adj_matrix.append(num_row)
+    # If the file cannot be found, print an error messege
+    except FileNotFoundError:
+        print("File could not be located (check if the file path is correct)")
 
     return adj_matrix
 
@@ -23,7 +27,7 @@ def readAdjMatrixFromFile(file_path):
 def getEdgeNeighbors(visited_nodes, adj_matrix):
     edges = []
     for i in range(len(adj_matrix)):
-        # Skip over nodes we are not finding edge neighbors for
+        # Skip over nodes we are not finding edge neighbors for as they have already been visited
         if visited_nodes[i] is False:
             continue
         for j in range(len(adj_matrix)):
@@ -37,7 +41,7 @@ def getEdgeNeighbors(visited_nodes, adj_matrix):
     return edges
 
 
-def updateDistances(distance_arr, edge_neighbors):
+def relaxVerticies(distance_arr, edge_neighbors):
     for edges in edge_neighbors:
         if distance_arr[edges[0]] + edges[2] < distance_arr[edges[1]]:
             # Update the new distance as the distance from source + distance of the edge as long as the new weight is smaller
@@ -61,37 +65,50 @@ def pickSmallestEdgeDestination(visited_nodes, distances):
     return next_node
 
 
-def performDikjstra(adj_w_matrix):
+def performDikjstra(adj_w_matrix, source_node):
 
-    if len(adj_w_matrix) > 9:
-        print("The maximum number of nodes that can be inputted is 9")
+    matrix_length = len(adj_w_matrix)
+
+    # Determine if the matrix is valid by checking if the length is (0 <= length(matrix) <= 9)
+    if matrix_length > 9:
+        print("ERROR: Too many nodes have been added (maximum is 9)")
+        return
+    elif matrix_length <= 0:
+        print("ERROR: The matrix is empty")
+        return
+    
+    # Determin if the source node is valid by checking if it is (0 <= source_node <= len(adj_matrix) - 1)
+    if source_node < 0 or source_node > len(adj_w_matrix) - 1:
+        print("ERROR: invalid source node")
         return
 
     # Create a distance array of 'infinity' values where each index correspondes to a node in the graph
-    distances = [maxsize] * len(adj_w_matrix)
+    distances = [maxsize] * matrix_length
+
     # Create a boolean array of visited nodes
-    visited_nodes = [False] * len(adj_w_matrix)
+    visited_nodes = [False] * matrix_length
 
     # Set the source node to be visited
-    visited_nodes[0] = True
+    visited_nodes[source_node] = True
 
     # Set the source node to have 0 weight
-    distances[0] = 0
+    distances[source_node] = 0
 
     while True:
         # Break out of the loop once all nodes have been visited
         if all(visited_nodes):
             break
+
         # Create a list of ALL edges to other nodes that we have visited
         edges = getEdgeNeighbors(visited_nodes, adj_w_matrix)
 
-        # Update (relax) distances from the list of edges
-        updateDistances(distances, edges)
+        # Rrelax verticies from the list of edges
+        relaxVerticies(distances, edges)
 
         print(distances)
         print(edges)
 
-        # Find the smallest node that hasnt been visited
+        # Find the next smallest node that hasnt been visited
         next_node = pickSmallestEdgeDestination(visited_nodes, distances)
 
         # Mark that smallest node as visited
@@ -102,53 +119,23 @@ def performDikjstra(adj_w_matrix):
     return distances
 
 
-def printDistancesToNodes(distances):
+def printDistancesToNodes(distances, source_node):
     # If the number of nodes is greater than 9 the distance array will be None so we must check if it has values or else
     # the program has a runtime error
     if distances is None:
         return
 
-    # Skip over the first node as it is the source
-    for i in range(1, len(distances)):
-        # We can map alphabetical letters to each node by using chr(ascii_value), so we start at 65 which is 'A'
-        # and after each print statment add 1 more to get sequential alphabetical letters
-        print("Source -> Node %s (%s): %s" % (i, chr(64 + i), distances[i]))
+    # Print each distance from the source to all other nodes
+    for i in range(0, len(distances)):
+        print("Source (%s) -> Node %s : %s" % (source_node, i, distances[i]))
 
 
 def main():
-    adj_w_matrix = [
-        [0, 8, 0, 0, 4],
-        [0, 0, 1, 0, 2],
-        [0, 0, 0, 4, 0],
-        [12, 0, 6, 0, 0],
-        [0, 3, 9, 2, 0],
-    ]
-
-    # adj_w_matrix = [
-    #     [0, 2, 3, 3, 0, 0, 0],
-    #     [2, 0, 4, 0, 3, 0, 0],
-    #     [3, 4, 0, 5, 1, 6, 0],
-    #     [3, 0, 5, 0, 0, 7, 0],
-    #     [0, 3, 1, 0, 0, 8, 0],
-    #     [0, 0, 6, 7, 8, 0, 9],
-    #     [0, 0, 0, 0, 0, 9, 0]
-    # ]
-
-    # adj_w_matrix = [
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    # ]
-
-    distances = performDikjstra(adj_w_matrix)
-    printDistancesToNodes(distances)
+    # Set a source node to start the 
+    source_node = 0
+    adj_matrix = readAdjMatrixFromFile("DijkstraShortestPath/matrices/adj_matrix_2.txt")
+    distances = performDikjstra(adj_matrix, source_node)
+    printDistancesToNodes(distances, source_node)
 
 
 if __name__ == "__main__":
