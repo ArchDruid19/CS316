@@ -93,6 +93,10 @@ def findTotalMSTWeight(mst_edge_list):
 
 
 def printMatrix(matrix):
+    # Check to make sure the matrix actually exists before attempting to print it
+    if matrix is None:
+        return
+    
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
             print("%-5s" % (matrix[i][j]), end=" ")
@@ -151,10 +155,11 @@ def performPrimMST(adj_matrix):
 
 def main():
     # Read an adjaceny matrix from a file
-    adj_matrix = readAdjMatrixFromFile("PrimMST/adj_matrix.txt")
+    adj_matrix = readAdjMatrixFromFile("PrimMST/matrices/adj_matrix.txt")
 
     # Get the MST as an adjaceny matrix
     adj_matrix_mst = performPrimMST(adj_matrix)
+    
     printMatrix(adj_matrix_mst)
 
 
