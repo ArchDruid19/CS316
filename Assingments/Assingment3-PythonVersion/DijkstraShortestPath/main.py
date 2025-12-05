@@ -2,6 +2,8 @@ from sys import maxsize
 
 
 def readAdjMatrixFromFile(file_path):
+    # If you are running the code from INSIDE the PrimMST folder, then the file path is "matrices/adj_matrix"
+    # If you are running the code from outside in the Assingment3-PythonVersion folder then the file path is PrimMST/matrices/adj_matrix
     adj_matrix = []
     try:
         # Open the file and loop through it, splitting each line and putting it into an array
@@ -25,6 +27,8 @@ def readAdjMatrixFromFile(file_path):
 
 
 def getEdgeNeighbors(visited_nodes, adj_matrix):
+    # Step 1. Get the edge neighbors of all of the nodes that have been visited so far
+
     edges = []
     for i in range(len(adj_matrix)):
         # Skip over nodes we are not finding edge neighbors for as they have already been visited
@@ -42,6 +46,8 @@ def getEdgeNeighbors(visited_nodes, adj_matrix):
 
 
 def relaxVerticies(distance_arr, edge_neighbors):
+    # Step 2. Relax the verticies that connect to the visited nodes
+
     for edges in edge_neighbors:
         if distance_arr[edges[0]] + edges[2] < distance_arr[edges[1]]:
             # Update the new distance as the distance from source + distance of the edge as long as the new weight is smaller
@@ -49,6 +55,8 @@ def relaxVerticies(distance_arr, edge_neighbors):
 
 
 def pickSmallestEdgeDestination(visited_nodes, distances):
+    # Step 3. Find the smallest edge weight of all nodes that have NOT been visited yet
+
     min_dist = maxsize
     next_node = -1
     # Find the smallest weight to get the next node to place in the visited list
@@ -60,7 +68,7 @@ def pickSmallestEdgeDestination(visited_nodes, distances):
             if distances[i] < min_dist:
                 min_dist = distances[i]
                 next_node = i
-    print(next_node)
+    # print(next_node)
 
     return next_node
 
@@ -76,7 +84,7 @@ def performDikjstra(adj_w_matrix, source_node):
     elif matrix_length <= 0:
         print("ERROR: The matrix is empty")
         return
-    
+
     # Determin if the source node is valid by checking if it is (0 <= source_node <= len(adj_matrix) - 1)
     if source_node < 0 or source_node > len(adj_w_matrix) - 1:
         print("ERROR: invalid source node")
@@ -105,8 +113,8 @@ def performDikjstra(adj_w_matrix, source_node):
         # Rrelax verticies from the list of edges
         relaxVerticies(distances, edges)
 
-        print(distances)
-        print(edges)
+        # print(distances)
+        # print(edges)
 
         # Find the next smallest node that hasnt been visited
         next_node = pickSmallestEdgeDestination(visited_nodes, distances)
@@ -131,10 +139,12 @@ def printDistancesToNodes(distances, source_node):
 
 
 def main():
-    # Set a source node to start the 
     source_node = 0
-    adj_matrix = readAdjMatrixFromFile("DijkstraShortestPath/matrices/adj_matrix_2.txt")
+    
+    adj_matrix = readAdjMatrixFromFile("matrices/adj_matrix.txt")
+
     distances = performDikjstra(adj_matrix, source_node)
+
     printDistancesToNodes(distances, source_node)
 
 

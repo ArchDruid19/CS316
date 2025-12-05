@@ -2,6 +2,9 @@ from sys import maxsize
 
 
 def readAdjMatrixFromFile(file_path):
+    # If you are running the code from INSIDE the PrimMST folder, then the file path is "matrices/adj_matrix"
+    # If you are running the code from outside (like running directly through VSCode) then the file path is PrimMST/matrices/adj_matrix
+
     adj_matrix = []
     try:
         # Open the file and loop through it, splitting each line and putting it into an array
@@ -25,6 +28,8 @@ def readAdjMatrixFromFile(file_path):
 
 
 def getEdgeNeighbors(visited_nodes, adj_matrix):
+    # Step 1. Get the edge neighbors of all nodes that have been visited
+
     edges = []
     for i in range(len(adj_matrix)):
         # Skip over nodes we are not finding edge neighbors for
@@ -42,6 +47,8 @@ def getEdgeNeighbors(visited_nodes, adj_matrix):
 
 
 def findValidEdges(visited_nodes, edges):
+    # Step 2. Retrieve only valid edges from the edge neighbors
+    
     valid_edges = []
     for edge in edges:
         # If the index at visited_nodes is the destination, we must skip it as we have already visited it
@@ -53,6 +60,8 @@ def findValidEdges(visited_nodes, edges):
 
 
 def findValidEdgeWithMinimumWeight(valid_edges):
+    # Step 3. Find the smallest weight valid edge
+ 
     # We start the minimum weight as a very large value
     # on the first iteration we make the min_weight the first examined edge (under the implication that it cant have a weight greater than maxsize)
     # and then keep comparing from there
@@ -68,6 +77,8 @@ def findValidEdgeWithMinimumWeight(valid_edges):
 
 
 def createPrimAdjMatrix(mst_list, original_adj_matrix_size):
+    # Step 4. Convert the list of MST edges back into an adj matrix 
+    
     prim_adj_matrix = []
 
     # We will pass through the length of the original adj matrix in order to create a new matrix that holds the mst
@@ -104,7 +115,7 @@ def printMatrix(matrix):
     print()
 
 
-def performPrimMST(adj_matrix):
+def performPrimMST(adj_matrix, source_node):
 
     if len(adj_matrix) <= 0:
         print("ERROR: Matrix is empty")
@@ -112,22 +123,25 @@ def performPrimMST(adj_matrix):
     elif len(adj_matrix) > 10:
         print("ERROR: Too many nodes have been used (maximum is 10)")
         return
+    
+    if source_node < 0 or source_node > len(adj_matrix) - 1:
+        print("ERROR: Invalid source node")
+        return
 
     # Create a boolean array of nodes that have already been visited
     v_nodes = [False] * len(adj_matrix)
 
-    # Mark the first node as true (visited) so we can start the algorithm.
-    # It is possible to start from ANY node, but for simplicity we will always start at the first node
-    v_nodes[0] = True
+    # Mark the source node as true (visited) so we can start the algorithm.
+    v_nodes[source_node] = True
 
     # Create an edge list of the mst where each edge is [source, destination, weight]
-    # This will be later used to create the mst adjaceny matrix and find the total weight of the tree
     mst_edge_list = []
 
     while True:
         # Once all nodes have been visited (all entries in v_nodes are True), break out of the while loop
         if all(v_nodes):
             break
+
         # Get all edge neighbors of nodes we have visited
         edges = getEdgeNeighbors(v_nodes, adj_matrix)
 
@@ -155,11 +169,11 @@ def performPrimMST(adj_matrix):
 
 def main():
     # Read an adjaceny matrix from a file
-    adj_matrix = readAdjMatrixFromFile("PrimMST/matrices/adj_matrix.txt")
+    adj_matrix = readAdjMatrixFromFile("matrices/adj_matrix.txt")
 
     # Get the MST as an adjaceny matrix
-    adj_matrix_mst = performPrimMST(adj_matrix)
-    
+    adj_matrix_mst = performPrimMST(adj_matrix, 3)
+
     printMatrix(adj_matrix_mst)
 
 
