@@ -1,0 +1,87 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="SjLAPHN9GcgADpzj3ntX">
+    <mxGraphModel dx="1710" dy="1702" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-1" target="vR3GcOiNdPWQd_fQNLZZ-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-1" value="Start" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="-1050" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-2" target="vR3GcOiNdPWQd_fQNLZZ-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-2" value="Split file names into queue" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="-990" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-4" target="vR3GcOiNdPWQd_fQNLZZ-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210.00000000000023" y="-700" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-4" target="vR3GcOiNdPWQd_fQNLZZ-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-4" value="While the queue is not empty" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="137.5" y="-810" width="85" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-5" target="vR3GcOiNdPWQd_fQNLZZ-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-5" value="Pop file name from queue" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="335" y="-720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-6" target="vR3GcOiNdPWQd_fQNLZZ-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-6" value="Open file&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="335" y="-630" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-7" target="vR3GcOiNdPWQd_fQNLZZ-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-7" target="vR3GcOiNdPWQd_fQNLZZ-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-7" value="While the file has lines to read" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="352.5" y="-550" width="85" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-9" value="True" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="227.5" y="-790" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-10" target="vR3GcOiNdPWQd_fQNLZZ-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-10" value="Append line to array" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="-430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-13" value="True" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="450" y="-530" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-15" target="vR3GcOiNdPWQd_fQNLZZ-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-15" value="Add file name as key and array as value" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="227.5" y="-430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vR3GcOiNdPWQd_fQNLZZ-17" target="vR3GcOiNdPWQd_fQNLZZ-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-17" value="Create empty hash map" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="32.5" y="-910" width="105" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-23" value="False" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="287.5" y="-530" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-24" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-120" y="-720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vR3GcOiNdPWQd_fQNLZZ-26" value="False" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="77.5" y="-790" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
