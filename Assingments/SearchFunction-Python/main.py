@@ -9,13 +9,15 @@ def getFileContentsHashMap(file_names):
     file_hash_table = {}
     while len(file_name_queue) > 0:
         file_name = file_name_queue.pop(0)
-        lines_array = []
+        added_line = ""
 
         try:
             with open(file_name) as f:
                 for lines in f:
-                    lines_array.append(lines.strip())
-                file_hash_table.update({file_name: lines_array})
+                    # Lines breaks will be treated as spaces so each line
+                    # Can be stored as 1 big string
+                    added_line += lines.strip() + " "
+                file_hash_table.update({file_name: added_line})
 
         except FileNotFoundError:
             print("Error: '" + file_name + "' does not exist")
@@ -52,7 +54,7 @@ def grepFunction(file_names, search_term):
 
 
 def main():
-    getFileContentsHashMap("file_1, file_2", "sd")
+    getFileContentsHashMap("file_1, file_2")
 
 
 if __name__ == "__main__":
